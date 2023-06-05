@@ -1,0 +1,11 @@
+# Compiled class files
+target/
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+src/main/resources/db.properties
+src/main/resources/StateDAO2.txt
+src/main/resources/ToDo.txt
