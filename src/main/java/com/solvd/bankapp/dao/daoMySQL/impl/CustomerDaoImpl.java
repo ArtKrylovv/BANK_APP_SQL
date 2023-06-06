@@ -64,11 +64,16 @@ public class CustomerDaoImpl implements iCustomerDao {
     public int create(Customer customer) throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        String sql = "INSERT INTO Customers (First_name, Last_name, Addresses_Id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Customers (SSN, First_name, Last_name, Addresses_Id) VALUES (?, ?, ?, ?)";
+
+//        INSERT INTO Customers (SSN, First_name, Last_name, Addresses_Id)
+//        VALUES (100000000, "Elon", "Musk", 1),
+
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, customer.getFirstName());
-        ps.setString(2, customer.getLastName());
-        ps.setInt(3, customer.getAddress().getId());
+        ps.setInt(1, customer.getSsn());
+        ps.setString(2, customer.getFirstName());
+        ps.setString(3, customer.getLastName());
+        ps.setInt(4, customer.getAddress().getId());
         int rs = ps.executeUpdate();
         ps.close();
         connectionPool.releaseConnection(connection);

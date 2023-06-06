@@ -56,7 +56,17 @@ public class SavingsDaoImpl implements iSavingsDao {
 
     @Override
     public int create(SavingsAccount savingsAccount) throws SQLException {
-        return 0;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        String sql = "INSERT INTO Saving_accounts (Balance, Interest, Customers_Id) VALUES (?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setLong(1, savingsAccount.getBalance());
+        ps.setDouble(2, savingsAccount.getInterest());
+        ps.setInt(3, savingsAccount.getCustomerId());
+        int rs = ps.executeUpdate();
+        ps.close();
+        connectionPool.releaseConnection(connection);
+        return rs;
     }
 
     @Override

@@ -57,7 +57,17 @@ public class CreditCardDaoImpl implements iCreditCardDao {
 
     @Override
     public int create(CreditCardAccount creditCardAccount) throws SQLException {
-        return 0;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        String sql = "INSERT INTO Credit_card_accounts (Balance, Interest, Customers_Id) VALUES (?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setLong(1, creditCardAccount.getBalance());
+        ps.setDouble(2, creditCardAccount.getInterest());
+        ps.setInt(3, creditCardAccount.getCustomerId());
+        int rs = ps.executeUpdate();
+        ps.close();
+        connectionPool.releaseConnection(connection);
+        return rs;
     }
 
     @Override

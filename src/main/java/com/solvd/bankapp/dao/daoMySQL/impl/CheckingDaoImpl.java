@@ -56,7 +56,16 @@ public class CheckingDaoImpl implements iCheckingDao {
 
     @Override
     public int create(CheckingAccount checkingAccount) throws SQLException {
-        return 0;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        String sql = "INSERT INTO Checking_accounts (Balance, Customers_Id) VALUES (?, ?)";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setLong(1, checkingAccount.getBalance());
+        ps.setInt(2, checkingAccount.getCustomerId());
+        int rs = ps.executeUpdate();
+        ps.close();
+        connectionPool.releaseConnection(connection);
+        return rs;
     }
 
     @Override
