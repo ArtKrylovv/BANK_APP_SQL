@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    //TODO implement flags to access short/full objects, finalize CRUD, implement Customer relations table,
-    // check how to resolve address id issue
+    //TODO implement flags to access short/full objects, finalize CRUD, implement Customer relations table, add logger
     public static void main (String[] args) throws SQLException {
 
         // create address
         StateDaoImpl stateDao = new StateDaoImpl();
         AddressDaoImpl addressDao = new AddressDaoImpl();
-        Address address = new Address(0, 100, "Lincoln blvd", 1,
+        Address address = new Address(11, 100, "Lincoln blvd", 1,
                 "Caramel",stateDao.get(1));
         addressDao.create(address);
 
@@ -27,7 +26,6 @@ public class Main {
         CheckingAccount checkingAccount = null;
         List<SavingsAccount> savingsAccountList = new ArrayList<>();
         List<CreditCardAccount> creditCardAccounts = new ArrayList<>();
-        address.setId(11);
         CustomerDaoImpl customerDao = new CustomerDaoImpl();
         customerDao.create(new Customer(777777777,"Alan", "Shepard",
                 address, savingsAccountList, creditCardAccounts, checkingAccount));

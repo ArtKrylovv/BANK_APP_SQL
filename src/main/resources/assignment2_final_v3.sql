@@ -1,7 +1,7 @@
 -- CREATING TABLES
 CREATE TABLE IF NOT EXISTS States (Id INT PRIMARY KEY AUTO_INCREMENT, Abbreviation VARCHAR(45), Name Varchar(45) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS Addresses (Id INT PRIMARY KEY AUTO_INCREMENT, House_number INT NOT NULL, Street_name VARCHAR(45) NOT NULL, Apt_number INT, City VARCHAR(45) NOT NULL, State_Id INT,
+CREATE TABLE IF NOT EXISTS Addresses (Id INT PRIMARY KEY, House_number INT NOT NULL, Street_name VARCHAR(45) NOT NULL, Apt_number INT, City VARCHAR(45) NOT NULL, State_Id INT,
 FOREIGN KEY (State_Id) REFERENCES States(Id) ON DELETE SET NULL ON UPDATE CASCADE);
 
 CREATE TABLE IF NOT EXISTS Customers (SSN INT PRIMARY KEY, First_name VARCHAR(45) NOT NULL, Last_name VARCHAR(45) NOT NULL,
@@ -57,17 +57,17 @@ VALUES ("CA", "California"),
 ("TE", "Test");
 
 
-INSERT INTO Addresses (House_number, Street_name, Apt_number,City, State_Id)
-VALUES (100, "Main st", Null, "Los Angeles", 1),
-(100, "Lincoln ave", 100, "Dallas", 4),
-(100, "Washington ave", 100, "Orlando", 2),
-(200, "Commerce ave", 100, "Los Angeles", 1),
-(200, "Commerce ave", 101, "Los Angeles", 1),
-(1, "Greed st", Null, "New York", 3),
-(10, "Santa Monica blvd", Null, "Santa Monica", 1),
-(1000, "Cosmos ave", Null, "Los Angeles", 1),
-(1, "Test ave", 1, "Testville", 5),
-(1730, "Sawtelle bld", Null, "West Los Angeles", 1);
+INSERT INTO Addresses (id, House_number, Street_name, Apt_number,City, State_Id)
+VALUES (1, 100, "Main st", Null, "Los Angeles", 1),
+(2, 100, "Lincoln ave", 100, "Dallas", 4),
+(3, 100, "Washington ave", 100, "Orlando", 2),
+(4, 200, "Commerce ave", 100, "Los Angeles", 1),
+(5, 200, "Commerce ave", 101, "Los Angeles", 1),
+(6, 1, "Greed st", Null, "New York", 3),
+(7, 10, "Santa Monica blvd", Null, "Santa Monica", 1),
+(8, 1000, "Cosmos ave", Null, "Los Angeles", 1),
+(9, 1, "Test ave", 1, "Testville", 5),
+(10, 1730, "Sawtelle bld", Null, "West Los Angeles", 1);
 
 INSERT INTO Customers (SSN, First_name, Last_name, Addresses_Id)
 VALUES (100000000, "Elon", "Musk", 1),
@@ -352,6 +352,5 @@ LEFT JOIN Loan_approvals apr ON em.Id = apr.Employees_Id
 LEFT JOIN Departments dp ON em.Departments_Id = dp.Id
 LEFT JOIN Payrolls pr ON em.Payrolls_Id = pr.Id
 LEFT JOIN Branches br ON em.Branches_Id = br.Id;
-
 
 

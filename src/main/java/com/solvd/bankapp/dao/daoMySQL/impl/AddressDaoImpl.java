@@ -60,13 +60,14 @@ public class AddressDaoImpl implements iAddressDao {
     public int create(Address address) throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        String sql = "INSERT INTO Addresses (House_number, Street_name, Apt_number,City, State_Id) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Addresses (House_number, Street_name, Apt_number,City, State_Id, id) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, address.getHouseNumber());
         ps.setString(2, address.getStreetName());
         ps.setInt(3, address.getAptNumber());
         ps.setString(4, address.getCity());
         ps.setInt(5, address.getState().getId());
+        ps.setInt(6, address.getId());
         int rs = ps.executeUpdate();
         ps.close();
         connectionPool.releaseConnection(connection);
