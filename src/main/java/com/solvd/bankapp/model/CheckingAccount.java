@@ -5,7 +5,8 @@ public class CheckingAccount {
     private long balance;
     private int customerId;
 
-    public CheckingAccount(long balance, int customerId) {
+    public CheckingAccount(long accountNumber,long balance, int customerId) {
+        this.accountNumber =  accountNumber;
         this.balance = balance;
         this.customerId = customerId;
     }
@@ -32,5 +33,14 @@ public class CheckingAccount {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckingAccount{" +
+                "accountNumber=" + accountNumber +
+                ", balance=" + balance +
+                ", customerId=" + customerId +
+                '}';
     }
 }

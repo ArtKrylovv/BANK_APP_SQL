@@ -6,7 +6,8 @@ public class SavingsAccount {
     private long balance;
     private int customerId;
 
-    public SavingsAccount(long balance, double interest, int customerId) {
+    public SavingsAccount(long accountNumber, double interest, long balance, int customerId) {
+        this.accountNumber = accountNumber;
         this.interest = interest;
         this.balance = balance;
         this.customerId = customerId;

@@ -8,18 +8,19 @@ public class Customer {
     private String lastName;
     private Address address;
     private List<SavingsAccount> savingAccountsList;
-
-//  to be implemented
-//    private List<CreditCardAccount> creditCardAccountsList;
-//    private CheckingAccount checkingAccount;
+    private List<CreditCardAccount> creditCardAccounts;
+    private CheckingAccount checkingAccount;
 
 
-    public Customer(int ssn, String firstName, String lastName, Address address, List<SavingsAccount> savingAccountsList) {
+    public Customer(int ssn, String firstName, String lastName, Address address,
+                    List<SavingsAccount> savingAccountsList, List<CreditCardAccount> creditCardAccounts, CheckingAccount checkingAccount) {
         this.ssn = ssn;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.savingAccountsList = savingAccountsList;
+        this.creditCardAccounts = creditCardAccounts;
+        this.checkingAccount = checkingAccount;
     }
 
     public Customer() {
@@ -65,6 +66,22 @@ public class Customer {
         this.savingAccountsList = savingAccountsList;
     }
 
+    public List<CreditCardAccount> getCreditCardAccounts() {
+        return creditCardAccounts;
+    }
+
+    public CheckingAccount getCheckingAccount() {
+        return checkingAccount;
+    }
+
+    public void setCreditCardAccounts(List<CreditCardAccount> creditCardAccounts) {
+        this.creditCardAccounts = creditCardAccounts;
+    }
+
+    public void setCheckingAccount(CheckingAccount checkingAccount) {
+        this.checkingAccount = checkingAccount;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -73,6 +90,8 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", address=" + address +
                 ", savingAccountsList=" + savingAccountsList +
+                ", creditCardAccounts=" + creditCardAccounts +
+                ", checkingAccount=" + checkingAccount +
                 '}';
     }
 }

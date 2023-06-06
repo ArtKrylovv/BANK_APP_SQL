@@ -1,5 +1,7 @@
 package com.solvd.bankapp.model;
 
+import com.solvd.bankapp.dao.daoMySQL.CheckingDaoImpl;
+
 import java.time.LocalDateTime;
 
 public class LoanApplication {
@@ -8,18 +10,22 @@ public class LoanApplication {
     private long amount;
     private double interest;
     private int duration;
-    private LocalDateTime created;
-    private int employeeId;
-    private int customerId;
+    private String dateCreated;
+    private Employee employee;
+    private Customer customer;
+    private LoanApproval loanApproval;
 
-    public LoanApplication(String object, long amount, double interest, int duration, LocalDateTime created, int employeesId, int customerId) {
+    public LoanApplication(int id, String object, long amount, double interest, int duration,
+                           String dateCreated, Employee employee, Customer customer, LoanApproval loanApproval) {
+        this.id = id;
         this.object = object;
         this.amount = amount;
         this.interest = interest;
         this.duration = duration;
-        this.created = created;
-        this.employeeId = employeesId;
-        this.customerId = customerId;
+        this.dateCreated = dateCreated;
+        this.employee = employee;
+        this.customer = customer;
+        this.loanApproval =loanApproval;
     }
 
     public int getId() {
@@ -42,16 +48,16 @@ public class LoanApplication {
         return duration;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public String getDateCreated() {
+        return dateCreated;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void setId(int id) {
@@ -74,15 +80,38 @@ public class LoanApplication {
         this.duration = duration;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "LoanApplication{" +
+                "id=" + id +
+                ", object='" + object + '\'' +
+                ", amount=" + amount +
+                ", interest=" + interest +
+                ", duration=" + duration +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", employee=" + employee +
+                ", customer=" + customer +
+                ", loanApproval=" + loanApproval +
+                '}';
+    }
+
+    public LoanApproval getLoanApproval() {
+        return loanApproval;
+    }
+
+    public void setLoanApproval(LoanApproval loanApproval) {
+        this.loanApproval = loanApproval;
     }
 }

@@ -4,12 +4,16 @@ public class LoanApproval {
     private int id;
     private boolean approvalStatus;
     private int loanApplicationId;
-    private int employeeId;
+    private Employee employee;
 
-    public LoanApproval(boolean approvalStatus, int loanApplicationsId, int employeesId) {
+    public LoanApproval(int id, boolean approvalStatus, int loanApplicationId, Employee employee) {
+        this.id = id;
         this.approvalStatus = approvalStatus;
-        this.loanApplicationId = loanApplicationsId;
-        this.employeeId = employeesId;
+        this.loanApplicationId = loanApplicationId;
+        this.employee = employee;
+    }
+
+    public LoanApproval() {
     }
 
     public int getId() {
@@ -24,8 +28,8 @@ public class LoanApproval {
         return loanApplicationId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
     public void setId(int id) {
@@ -40,7 +44,17 @@ public class LoanApproval {
         this.loanApplicationId = loanApplicationId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "LoanApproval{" +
+                "id=" + id +
+                ", approvalStatus=" + approvalStatus +
+                ", loanApplicationId=" + loanApplicationId +
+                ", employee=" + employee +
+                '}';
     }
 }

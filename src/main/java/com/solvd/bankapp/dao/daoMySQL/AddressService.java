@@ -14,10 +14,9 @@ public class AddressService {
     private iStateDao stateDao = new StateDaoImpl();
 
     public Address get(int id) throws SQLException {
-        Address address = null;
+        Address address = addressDao.get(id);
         int stateId = addressDao.getStateIdByAddressId(id);
         State state = stateDao.get(stateId);
-        address = addressDao.get(id);
         address.setState(state);
         return address;
     }

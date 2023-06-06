@@ -6,7 +6,8 @@ public class CreditCardAccount {
     private long balance;
     private int customerId;
 
-    public CreditCardAccount(double interest, long balance, int customerId) {
+    public CreditCardAccount(long accountNumber, double interest, long balance,  int customerId) {
+        this.accountNumber =accountNumber;
         this.interest = interest;
         this.balance = balance;
         this.customerId = customerId;
@@ -42,5 +43,15 @@ public class CreditCardAccount {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCardAccount{" +
+                "accountNumber=" + accountNumber +
+                ", interest=" + interest +
+                ", balance=" + balance +
+                ", customerId=" + customerId +
+                '}';
     }
 }

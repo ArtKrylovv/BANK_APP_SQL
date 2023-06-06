@@ -2,46 +2,42 @@ package com.solvd.bankapp.model;
 
 public class Payroll {
     private int id;
-    private String payType;
+    // replace with enum
+    private PayType payType;
     private int annualSalary;
     private int hourlyRate;
-
-    public Payroll(String payType, int annualSalary, int hourlyRate) {
-        this.payType = payType;
-        this.annualSalary = annualSalary;
-        this.hourlyRate = hourlyRate;
-    }
 
     public int getId() {
         return id;
     }
 
-    public String getPayType() {
+    public PayType getPayType() {
         return payType;
     }
 
-    public Integer getAnnualSalary() {
+    public int getAnnualSalary() {
         return annualSalary;
     }
 
-    public Integer getHourlyRate() {
+    public int getHourlyRate() {
         return hourlyRate;
+    }
+
+    public Payroll(int id, PayType payType, int annualSalary, int hourlyRate) {
+        this.id = id;
+        this.payType = payType;
+        this.annualSalary = annualSalary;
+        this.hourlyRate = hourlyRate;
+
+
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setPayType(String payType) {
+    public void setPayType(PayType payType) {
         this.payType = payType;
-    }
-
-    public void setAnnualSalary(Integer annualSalary) {
-        this.annualSalary = annualSalary;
-    }
-
-    public void setHourlyRate(Integer hourlyRate) {
-        this.hourlyRate = hourlyRate;
     }
 
     public void setAnnualSalary(int annualSalary) {
@@ -51,4 +47,15 @@ public class Payroll {
     public void setHourlyRate(int hourlyRate) {
         this.hourlyRate = hourlyRate;
     }
+
+    @Override
+    public String toString() {
+        return "Payroll{" +
+                "id=" + id +
+                ", payType=" + payType +
+                ", annualSalary=" + annualSalary +
+                ", hourlyRate=" + hourlyRate +
+                '}';
+    }
 }
+

@@ -1,11 +1,8 @@
 package com.solvd.bankapp;
 
 import com.solvd.bankapp.dao.daoMySQL.*;
-import com.solvd.bankapp.model.SavingsAccount;
-import com.solvd.bankapp.model.State;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class Main {
     public static <States> void main (String[] args) throws SQLException {
@@ -60,8 +57,11 @@ public class Main {
 //        System.out.println(customerDao.getAll());
 //
 //        System.out.println(new CustomerService().get(100000000));
-        System.out.println(new CustomerService().getAll());
+//        System.out.println(new CustomerService().getAll());
 
-
+//        BranchDaoImpl branchDao = new BranchDaoImpl();
+//        System.out.println(branchDao.getAll());
+        System.out.println(new LoanApplicationService().get(1));
+        System.out.println(new LoanApplicationService().getAll());
     }
 }

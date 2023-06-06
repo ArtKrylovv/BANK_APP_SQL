@@ -1,10 +1,7 @@
 package com.solvd.bankapp.dao.daoMySQL;
 
 import com.solvd.bankapp.dao.iCustomerDao;
-import com.solvd.bankapp.model.Address;
-import com.solvd.bankapp.model.Customer;
-import com.solvd.bankapp.model.SavingsAccount;
-import com.solvd.bankapp.model.State;
+import com.solvd.bankapp.model.*;
 import com.solvd.bankapp.utils.ConnectionUtils;
 
 import java.sql.Connection;
@@ -29,7 +26,11 @@ public class CustomerDaoImpl implements iCustomerDao {
             String lastName = resultSet.getString("last_name");
             Address address = null;
             List<SavingsAccount> savingAccountsList = new ArrayList<>();
-            customersList.add(new Customer(ssn, firstName,lastName,address, savingAccountsList));
+            List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
+            CheckingAccount checkingAccount = null;
+
+            customersList.add(new Customer(ssn, firstName,lastName,address, savingAccountsList,
+                    creditCardAccountsList, checkingAccount));
         }
         return customersList;
     }
@@ -48,7 +49,10 @@ public class CustomerDaoImpl implements iCustomerDao {
             String lastName = resultSet.getString("last_name");
             Address address = null;
             List<SavingsAccount> savingAccountsList = new ArrayList<>();
-            customer = new Customer(ssn, firstName,lastName,address, savingAccountsList);
+            List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
+            CheckingAccount checkingAccount = null;
+            customer = new Customer(ssn, firstName,lastName,address, savingAccountsList,
+                    creditCardAccountsList, checkingAccount);
         }
         return customer;
     }

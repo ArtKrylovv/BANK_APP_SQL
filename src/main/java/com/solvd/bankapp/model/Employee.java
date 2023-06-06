@@ -5,19 +5,24 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String role;
-    private int addressId;
-    private int departmentId;
-    private int branchId;
-    private int payrollId;
+    private Address address;
+    private Department department;
+    private Branch branch;
+    private Payroll payroll;
 
-    public Employee(String firstName, String lastName, String role, int addressesId, int departmentsId, int brancheId, int payrollsId) {
+    public Employee(int id, String firstName, String lastName, String role, Address address, Department department, Branch branch, Payroll payroll) {
+        // consider refactoring to reduce number of FKs in the table
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.addressId = addressesId;
-        this.departmentId = departmentsId;
-        this.branchId = brancheId;
-        this.payrollId = payrollsId;
+        this.address = address;
+        this.department = department;
+        this.branch = branch;
+        this.payroll = payroll;
+    }
+
+    public Employee() {
     }
 
     public int getId() {
@@ -36,20 +41,20 @@ public class Employee {
         return role;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public int getBranchId() {
-        return branchId;
+    public Branch getBranch() {
+        return branch;
     }
 
-    public int getPayrollId() {
-        return payrollId;
+    public Payroll getPayroll() {
+        return payroll;
     }
 
     public void setId(int id) {
@@ -68,19 +73,33 @@ public class Employee {
         this.role = role;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
-    public void setPayrollId(int payrollId) {
-        this.payrollId = payrollId;
+    public void setPayroll(Payroll payroll) {
+        this.payroll = payroll;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role='" + role + '\'' +
+                ", address=" + address +
+                ", department=" + department +
+                ", branch=" + branch +
+                ", payroll=" + payroll +
+                '}';
     }
 }

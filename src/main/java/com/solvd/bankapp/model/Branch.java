@@ -3,11 +3,20 @@ package com.solvd.bankapp.model;
 public class Branch {
     private int id;
     private String name;
-    private int addressesId;
+    private Address address;
 
-    public Branch(String name, int addressesId) {
+    public Branch(String name, Address address) {
         this.name = name;
-        this.addressesId = addressesId;
+        this.address = address;
+    }
+
+    public Branch(int id, String name, Address address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+
+    public Branch() {
     }
 
     public int getId() {
@@ -18,8 +27,8 @@ public class Branch {
         return name;
     }
 
-    public int getAddressesId() {
-        return addressesId;
+    public Address getAddress() {
+        return address;
     }
 
     public void setId(int id) {
@@ -30,9 +39,16 @@ public class Branch {
         this.name = name;
     }
 
-    public void setAddressesId(int addressesId) {
-        this.addressesId = addressesId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-
+    @Override
+    public String toString() {
+        return "Branch{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }

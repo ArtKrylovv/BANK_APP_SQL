@@ -4,14 +4,15 @@ public class Appointment {
     private int id;
     private String reason;
     private boolean completed;
-    private int employeesId;
-    private int customersId;
+    private Employee employee;
+    private Customer customer;
 
-    public Appointment(String reason, boolean completed, int employeesId, int customersId) {
+    public Appointment(int id, String reason, boolean completed, Employee employee, Customer customer) {
+        this.id = id;
         this.reason = reason;
         this.completed = completed;
-        this.employeesId = employeesId;
-        this.customersId = customersId;
+        this.employee = employee;
+        this.customer = customer;
     }
 
     public int getId() {
@@ -26,12 +27,12 @@ public class Appointment {
         return completed;
     }
 
-    public int getEmployeesId() {
-        return employeesId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public int getCustomersId() {
-        return customersId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void setId(int id) {
@@ -46,12 +47,22 @@ public class Appointment {
         this.completed = completed;
     }
 
-    public void setEmployeesId(int employeesId) {
-        this.employeesId = employeesId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public void setCustomersId(int customersId) {
-        this.customersId = customersId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", reason='" + reason + '\'' +
+                ", completed=" + completed +
+                ", employee=" + employee +
+                ", customer=" + customer +
+                '}';
+    }
 }

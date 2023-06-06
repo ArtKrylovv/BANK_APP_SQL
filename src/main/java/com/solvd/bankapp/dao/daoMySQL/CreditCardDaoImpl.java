@@ -1,8 +1,7 @@
 package com.solvd.bankapp.dao.daoMySQL;
 
-import com.solvd.bankapp.dao.iSavingsDao;
-import com.solvd.bankapp.model.Address;
-import com.solvd.bankapp.model.Customer;
+import com.solvd.bankapp.dao.iCreditCardDao;
+import com.solvd.bankapp.model.CreditCardAccount;
 import com.solvd.bankapp.model.SavingsAccount;
 import com.solvd.bankapp.utils.ConnectionUtils;
 
@@ -13,33 +12,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavingsDaoImpl implements iSavingsDao {
+public class CreditCardDaoImpl implements iCreditCardDao {
     @Override
-    public List<SavingsAccount> getAll() throws SQLException {
-        List<SavingsAccount> savingAccountsList = new ArrayList<>();
+    public List<CreditCardAccount> getAll() throws SQLException {
+        List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
         Connection connection = ConnectionUtils.getConnection();
-        String sql = "SELECT Balance, Interest, Customers_Id, account_number FROM Saving_accounts";
+        String sql = "SELECT Balance, Interest, Customers_Id, account_number FROM Credit_card_accounts";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             long balance = resultSet.getLong("balance");
             double interest = resultSet.getDouble("interest");
             int customerId = resultSet.getInt("customers_id");
             long accountNumber = resultSet.getLong("account_number");
-            savingAccountsList.add(new SavingsAccount(accountNumber, interest, balance,customerId));
+            creditCardAccountsList.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
         }
-        return savingAccountsList;
+        return creditCardAccountsList;
     }
 
     @Override
-    public SavingsAccount get(int id) throws SQLException {
+    public CreditCardAccount get(int id) throws SQLException {
         return null;
     }
+
     // overloads with long id
-    public SavingsAccount get(long id) throws SQLException {
-        SavingsAccount savingsAccount = null;
+    public CreditCardAccount get(long id) throws SQLException {
+        CreditCardAccount creditCardAccount = null;
         Connection connection = ConnectionUtils.getConnection();
-        String sql = "SELECT Balance, Interest, Customers_Id FROM Saving_accounts WHERE account_number =?";
+        String sql = "SELECT Balance, Interest, Customers_Id FROM Credit_card_accounts WHERE account_number =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setLong(1, id);
         ResultSet resultSet = ps.executeQuery();
@@ -47,18 +47,18 @@ public class SavingsDaoImpl implements iSavingsDao {
             long balance = resultSet.getLong("balance");
             double interest = resultSet.getDouble("interest");
             int customerId = resultSet.getInt("customers_id");
-            savingsAccount = new SavingsAccount(id, interest, balance,customerId);
+            creditCardAccount = new CreditCardAccount(id, interest, balance, customerId);
         }
-        return savingsAccount;
+        return creditCardAccount;
     }
 
     @Override
-    public int create(SavingsAccount savingsAccount) throws SQLException {
+    public int create(CreditCardAccount creditCardAccount) throws SQLException {
         return 0;
     }
 
     @Override
-    public int update(SavingsAccount savingsAccount) throws SQLException {
+    public int update(CreditCardAccount creditCardAccount) throws SQLException {
         return 0;
     }
 
@@ -68,10 +68,10 @@ public class SavingsDaoImpl implements iSavingsDao {
     }
 
     @Override
-    public List<SavingsAccount> getSavingsAccountsListBySsn(int ssn) throws SQLException{
-        List<SavingsAccount> savingsAccountsList = new ArrayList<>();
+    public List<CreditCardAccount> getCreditCardAccountsListBySsn(int ssn) throws SQLException {
+        List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
         Connection connection = ConnectionUtils.getConnection();
-        String sql = "SELECT Balance, Interest, Customers_Id, Account_number FROM Saving_accounts WHERE Customers_Id =?";
+        String sql = "SELECT Balance, Interest, Customers_Id, Account_number FROM Credit_card_accounts WHERE Customers_Id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, ssn);
         ResultSet resultSet = ps.executeQuery();
@@ -80,8 +80,8 @@ public class SavingsDaoImpl implements iSavingsDao {
             double interest = resultSet.getDouble("interest");
             int customerId = resultSet.getInt("customers_id");
             long accountNumber = resultSet.getLong("account_number");
-            savingsAccountsList.add (new SavingsAccount(accountNumber, interest, balance,customerId));
+            creditCardAccountsList.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
         }
-        return savingsAccountsList;
+        return creditCardAccountsList;
     }
 }
