@@ -1,9 +1,5 @@
 package com.solvd.bankapp.model;
 
-import com.solvd.bankapp.dao.daoMySQL.CheckingDaoImpl;
-
-import java.time.LocalDateTime;
-
 public class LoanApplication {
     private int id;
     private String object;

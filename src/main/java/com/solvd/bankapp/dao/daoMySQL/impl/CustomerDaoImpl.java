@@ -1,9 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iCustomerDao;
 import com.solvd.bankapp.model.*;
-import com.solvd.bankapp.utils.ConnectionUtils;
-
+import com.solvd.bankapp.utils.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +15,8 @@ public class CustomerDaoImpl implements iCustomerDao {
     @Override
     public List<Customer> getAll() throws SQLException {
         List<Customer> customersList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -32,13 +32,15 @@ public class CustomerDaoImpl implements iCustomerDao {
             customersList.add(new Customer(ssn, firstName,lastName,address, savingAccountsList,
                     creditCardAccountsList, checkingAccount));
         }
+        connectionPool.releaseConnection(connection);
         return customersList;
     }
 
     @Override
     public Customer get(int id) throws SQLException {
         Customer customer = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers WHERE SSN =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -54,12 +56,14 @@ public class CustomerDaoImpl implements iCustomerDao {
             customer = new Customer(ssn, firstName,lastName,address, savingAccountsList,
                     creditCardAccountsList, checkingAccount);
         }
+        connectionPool.releaseConnection(connection);
         return customer;
     }
 
     @Override
     public int create(Customer customer) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO Customers (First_name, Last_name, Addresses_Id) VALUES (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, customer.getFirstName());
@@ -67,35 +71,36 @@ public class CustomerDaoImpl implements iCustomerDao {
         ps.setInt(3, customer.getAddress().getId());
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int update(Customer customer) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "UPDATE Customers SET First_name =?, Last_name =?, Addresses_Id =? WHERE SSN =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, customer.getFirstName());
         ps.setString(2, customer.getLastName());
         ps.setInt(3, customer.getAddress().getId());
         ps.setInt(4, customer.getSsn());
-
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM Customers WHERE SSN = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 }

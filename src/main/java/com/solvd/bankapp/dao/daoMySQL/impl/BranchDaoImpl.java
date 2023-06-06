@@ -1,10 +1,9 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iBranchDao;
 import com.solvd.bankapp.model.Address;
 import com.solvd.bankapp.model.Branch;
-import com.solvd.bankapp.model.State;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +17,8 @@ public class BranchDaoImpl implements iBranchDao {
     @Override
     public int getAddressIdByBranchId(int id) throws SQLException {
         int addressId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Addresses_id FROM Branches WHERE id =?";
         PreparedStatement ps =  connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -26,13 +26,15 @@ public class BranchDaoImpl implements iBranchDao {
         if (resultSet.next()){
             addressId =  resultSet.getInt("Addresses_id");
         }
+        connectionPool.releaseConnection(connection);
         return addressId;
     }
 
     @Override
     public List<Branch> getAll() throws SQLException {
         List<Branch> branchesList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT name, Addresses_id, id FROM Branches";
         PreparedStatement ps =  connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -42,6 +44,7 @@ public class BranchDaoImpl implements iBranchDao {
             Address address = null;
             branchesList.add(new Branch(idBranches, name, address));
         }
+        connectionPool.releaseConnection(connection);
         return branchesList;
     }
 
@@ -49,7 +52,8 @@ public class BranchDaoImpl implements iBranchDao {
     @Override
     public Branch get(int id) throws SQLException {
         Branch branch = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT name, Addresses_id, id FROM Branches WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -60,6 +64,7 @@ public class BranchDaoImpl implements iBranchDao {
             Address address = null;
             branch = new Branch(idBranches, name, address);
         }
+        connectionPool.releaseConnection(connection);
         return branch;
     }
 

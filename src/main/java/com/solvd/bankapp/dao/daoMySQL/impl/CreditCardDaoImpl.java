@@ -1,9 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iCreditCardDao;
 import com.solvd.bankapp.model.CreditCardAccount;
-import com.solvd.bankapp.model.SavingsAccount;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +15,8 @@ public class CreditCardDaoImpl implements iCreditCardDao {
     @Override
     public List<CreditCardAccount> getAll() throws SQLException {
         List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Interest, Customers_Id, account_number FROM Credit_card_accounts";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -27,6 +27,7 @@ public class CreditCardDaoImpl implements iCreditCardDao {
             long accountNumber = resultSet.getLong("account_number");
             creditCardAccountsList.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
         }
+        connectionPool.releaseConnection(connection);
         return creditCardAccountsList;
     }
 
@@ -38,7 +39,8 @@ public class CreditCardDaoImpl implements iCreditCardDao {
     // overloads with long id
     public CreditCardAccount get(long id) throws SQLException {
         CreditCardAccount creditCardAccount = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Interest, Customers_Id FROM Credit_card_accounts WHERE account_number =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setLong(1, id);
@@ -49,6 +51,7 @@ public class CreditCardDaoImpl implements iCreditCardDao {
             int customerId = resultSet.getInt("customers_id");
             creditCardAccount = new CreditCardAccount(id, interest, balance, customerId);
         }
+        connectionPool.releaseConnection(connection);
         return creditCardAccount;
     }
 
@@ -70,7 +73,8 @@ public class CreditCardDaoImpl implements iCreditCardDao {
     @Override
     public List<CreditCardAccount> getCreditCardAccountsListBySsn(int ssn) throws SQLException {
         List<CreditCardAccount> creditCardAccountsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Interest, Customers_Id, Account_number FROM Credit_card_accounts WHERE Customers_Id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, ssn);
@@ -82,6 +86,7 @@ public class CreditCardDaoImpl implements iCreditCardDao {
             long accountNumber = resultSet.getLong("account_number");
             creditCardAccountsList.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
         }
+        connectionPool.releaseConnection(connection);
         return creditCardAccountsList;
     }
 }

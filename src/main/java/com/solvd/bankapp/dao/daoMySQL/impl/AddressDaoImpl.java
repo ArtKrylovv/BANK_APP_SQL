@@ -1,10 +1,9 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iAddressDao;
 import com.solvd.bankapp.model.Address;
-import com.solvd.bankapp.model.Department;
 import com.solvd.bankapp.model.State;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +16,8 @@ public class AddressDaoImpl implements iAddressDao {
     @Override
     public List<Address> getAll() throws SQLException {
         List<Address> addressesList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT id, house_number, street_name, apt_number, city, state_Id FROM Addresses";
         PreparedStatement ps =  connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -30,13 +30,15 @@ public class AddressDaoImpl implements iAddressDao {
             State state = null;
             addressesList.add(new Address(idAddress, houseNumber,streetName, aptNumber,city,state));
         }
+        connectionPool.releaseConnection(connection);
         return addressesList;
     }
 
     @Override
     public Address get(int id) throws SQLException {
         Address address = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT id, house_number, street_name, apt_number, city, state_Id FROM Addresses WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -50,12 +52,14 @@ public class AddressDaoImpl implements iAddressDao {
             State state = null;
             address = new Address(idAddress, houseNumber,streetName, aptNumber,city,state);
         }
+        connectionPool.releaseConnection(connection);
         return address;
     }
 
     @Override
     public int create(Address address) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO Addresses (House_number, Street_name, Apt_number,City, State_Id) VALUES (?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, address.getHouseNumber());
@@ -65,13 +69,15 @@ public class AddressDaoImpl implements iAddressDao {
         ps.setInt(5, address.getState().getId());
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int update(Address address) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "UPDATE Addresses SET House_number=?, Street_name=?, Apt_number=?,City=? WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, address.getHouseNumber());
@@ -82,26 +88,28 @@ public class AddressDaoImpl implements iAddressDao {
         ps.setInt(5, address.getState().getId());
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM Addresses WHERE Id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int getStateIdByAddressId(int id) throws SQLException {
         int stateId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT state_id FROM Addresses WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -109,6 +117,7 @@ public class AddressDaoImpl implements iAddressDao {
         if (resultSet.next()){
             stateId = resultSet.getInt("state_id");
         }
+        connectionPool.releaseConnection(connection);
         return stateId;
     }
 }

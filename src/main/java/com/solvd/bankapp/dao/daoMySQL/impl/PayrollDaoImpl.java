@@ -1,12 +1,9 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
-import com.solvd.bankapp.dao.iDao;
 import com.solvd.bankapp.dao.iPayrollDao;
-import com.solvd.bankapp.model.Address;
-import com.solvd.bankapp.model.Branch;
 import com.solvd.bankapp.model.PayType;
 import com.solvd.bankapp.model.Payroll;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +16,9 @@ public class PayrollDaoImpl implements iPayrollDao {
     @Override
     public List<Payroll> getAll() throws SQLException {
         List<Payroll> payrollsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "SELECT id, Pay_type, Hourly_rate, Annual_salary FROM Payrolls";
         PreparedStatement ps =  connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -37,12 +36,14 @@ public class PayrollDaoImpl implements iPayrollDao {
             }
             payrollsList.add(new Payroll(payrollId, payType, annualSalary, hourlyRate));
         }
+        connectionPool.releaseConnection(connection);
         return payrollsList;
     }
 
     @Override
     public Payroll get(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT id, Pay_type, Hourly_rate, Annual_salary FROM Payrolls WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,id);
@@ -62,12 +63,15 @@ public class PayrollDaoImpl implements iPayrollDao {
             }
             payRoll = new Payroll(payrollId, payType, annualSalary, hourlyRate);
         }
+        connectionPool.releaseConnection(connection);
         return payRoll;
     }
 
     @Override
     public int create(Payroll payroll) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "INSERT INTO Payrolls (Pay_type, Hourly_rate, Annual_salary) VALUES (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(2, payroll.getHourlyRate());
@@ -83,19 +87,19 @@ public class PayrollDaoImpl implements iPayrollDao {
         ps.setString(1, payType);
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int update(Payroll payroll) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "UPDATE Payrolls SET Pay_type=?, Hourly_rate=?, Annual_salary=? WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(2, payroll.getHourlyRate());
         ps.setInt(3, payroll.getAnnualSalary());
         ps.setInt(4, payroll.getId());
-
         String payType = null;
         // create and reuse utility method
         if (payroll.getPayType().name().equals("FULL_TIME")) {
@@ -107,18 +111,21 @@ public class PayrollDaoImpl implements iPayrollDao {
         int rs = ps.executeUpdate();
         ps.close();
         connection.close();
+        connectionPool.releaseConnection(connection);
+
         return rs;
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM Payrolls WHERE Id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 }

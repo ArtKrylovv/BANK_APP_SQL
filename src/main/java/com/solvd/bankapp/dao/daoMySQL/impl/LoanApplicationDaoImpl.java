@@ -1,11 +1,11 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iLoanApplicationDao;
 import com.solvd.bankapp.model.Customer;
 import com.solvd.bankapp.model.Employee;
 import com.solvd.bankapp.model.LoanApplication;
 import com.solvd.bankapp.model.LoanApproval;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,8 @@ public class LoanApplicationDaoImpl implements iLoanApplicationDao {
     @Override
     public int getCustomerSsnByLoanId(int id) throws SQLException {
         int ssn = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT customers_id FROM loan_applications WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -26,13 +27,15 @@ public class LoanApplicationDaoImpl implements iLoanApplicationDao {
         if (resultSet.next()){
             ssn = resultSet.getInt("customers_id");
         }
+        connectionPool.releaseConnection(connection);
         return ssn;
     }
 
     @Override
     public int getEmployeeIdByLoanId(int id) throws SQLException {
         int employeesId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT employees_id FROM loan_applications WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -40,13 +43,16 @@ public class LoanApplicationDaoImpl implements iLoanApplicationDao {
         if (resultSet.next()){
             employeesId = resultSet.getInt("employees_id");
         }
+        connectionPool.releaseConnection(connection);
         return employeesId;
     }
 
     @Override
     public List<LoanApplication> getAll() throws SQLException {
         List<LoanApplication> loanApplicationsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "SELECT id,Object, Amount, Interest, Duration, Created, Employees_Id, Customers_Id FROM Loan_applications";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -62,13 +68,15 @@ public class LoanApplicationDaoImpl implements iLoanApplicationDao {
             LoanApproval loanApproval = null;
             loanApplicationsList.add(new LoanApplication(id, object, amount, interest, duration, dateCreated, employee, customer, loanApproval));
         }
+        connectionPool.releaseConnection(connection);
         return loanApplicationsList;
     }
 
     @Override
     public LoanApplication get(int id) throws SQLException {
         LoanApplication loanApplication = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Object, Amount, Interest, Duration, Created, Employees_Id, Customers_Id FROM Loan_applications WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -84,6 +92,7 @@ public class LoanApplicationDaoImpl implements iLoanApplicationDao {
             LoanApproval loanApproval = null;
             loanApplication = new LoanApplication(id, object, amount, interest, duration, dateCreated, employee, customer, loanApproval);
         }
+        connectionPool.releaseConnection(connection);
         return loanApplication;
     }
 

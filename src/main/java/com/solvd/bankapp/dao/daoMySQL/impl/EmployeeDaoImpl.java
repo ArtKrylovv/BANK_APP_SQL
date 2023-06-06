@@ -1,8 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iEmployeeDao;
 import com.solvd.bankapp.model.*;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,9 @@ public class EmployeeDaoImpl implements iEmployeeDao {
     @Override
     public List<Employee> getAll() throws SQLException {
         List<Employee> employeesList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "SELECT First_name, Last_name, Role, Addresses_Id, Departments_Id, Branches_Id, Payrolls_Id, id FROM Employees";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -31,13 +33,15 @@ public class EmployeeDaoImpl implements iEmployeeDao {
             Payroll payroll = null;
             employeesList.add(new Employee(id, firstName, lastName, role, address, department, branch, payroll));
         }
+        connectionPool.releaseConnection(connection);
         return employeesList;
     }
 
     @Override
     public Employee get(int id) throws SQLException {
         Employee employee = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT First_name, Last_name, Role, Addresses_Id, Departments_Id, Branches_Id, Payrolls_Id FROM Employees WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -52,6 +56,7 @@ public class EmployeeDaoImpl implements iEmployeeDao {
             Payroll payroll = null;
             employee = new Employee(id, firstName, lastName, role, address, department, branch, payroll);
         }
+        connectionPool.releaseConnection(connection);
         return employee;
     }
 
@@ -73,7 +78,9 @@ public class EmployeeDaoImpl implements iEmployeeDao {
     @Override
     public int getDepartmentIdByEmployeeId(int id) throws SQLException {
         int departmentId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "SELECT departments_id FROM Employees WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -81,6 +88,7 @@ public class EmployeeDaoImpl implements iEmployeeDao {
         if (resultSet.next()) {
             departmentId = resultSet.getInt("departments_id");
         }
+        connectionPool.releaseConnection(connection);
         return departmentId;
     }
 
@@ -88,7 +96,8 @@ public class EmployeeDaoImpl implements iEmployeeDao {
     @Override
     public int getBranchIdByEmployeeId(int id) throws SQLException {
         int branchId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT branches_id FROM Employees WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -96,13 +105,15 @@ public class EmployeeDaoImpl implements iEmployeeDao {
         if (resultSet.next()) {
             branchId = resultSet.getInt("branches_id");
         }
+        connectionPool.releaseConnection(connection);
         return branchId;
     }
 
     @Override
     public int getAddressIdByEmployeeId(int id) throws SQLException {
         int addressId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Addresses_Id FROM Employees WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -110,13 +121,15 @@ public class EmployeeDaoImpl implements iEmployeeDao {
         if (resultSet.next()) {
             addressId = resultSet.getInt("Addresses_Id");
         }
+        connectionPool.releaseConnection(connection);
         return addressId;
     }
 
     @Override
     public int getPayrollIdByEmployeeId(int id) throws SQLException {
         int employeeId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT payrolls_id FROM Employees WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -124,6 +137,7 @@ public class EmployeeDaoImpl implements iEmployeeDao {
         if (resultSet.next()) {
             employeeId = resultSet.getInt("payrolls_id");
         }
+        connectionPool.releaseConnection(connection);
         return employeeId;
     }
 }

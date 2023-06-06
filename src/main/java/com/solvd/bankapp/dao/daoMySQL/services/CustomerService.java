@@ -1,12 +1,15 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.services;
 
+import com.solvd.bankapp.dao.daoMySQL.impl.CheckingDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.CreditCardDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.CustomerDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.SavingsDaoImpl;
 import com.solvd.bankapp.dao.iCheckingDao;
 import com.solvd.bankapp.dao.iCreditCardDao;
 import com.solvd.bankapp.dao.iCustomerDao;
 import com.solvd.bankapp.dao.iSavingsDao;
 import com.solvd.bankapp.model.*;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

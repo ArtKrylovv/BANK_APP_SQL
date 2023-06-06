@@ -46,10 +46,14 @@ public class ConnectionPool {
         }
     }
     // returns connection if the connections list is not empty
-    public synchronized Connection getConnection () throws InterruptedException {
+    public synchronized Connection getConnection ()  {
         while (connectionList.isEmpty()){
-            wait();
-    }
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
      Connection connection = connectionList.remove(connectionList.size()-1);
     return connection;
 }

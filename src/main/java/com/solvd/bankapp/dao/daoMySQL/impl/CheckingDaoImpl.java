@@ -1,9 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iCheckingDao;
 import com.solvd.bankapp.model.CheckingAccount;
-import com.solvd.bankapp.model.CreditCardAccount;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +15,8 @@ public class CheckingDaoImpl implements iCheckingDao {
     @Override
     public List<CheckingAccount> getAll() throws SQLException {
         List<CheckingAccount> checkingAccountsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -26,6 +26,7 @@ public class CheckingDaoImpl implements iCheckingDao {
             long accountNumber = resultSet.getLong("account_number");
             checkingAccountsList.add(new CheckingAccount(accountNumber, balance, customerId));
         }
+        connectionPool.releaseConnection(connection);
         return checkingAccountsList;
     }
 
@@ -37,7 +38,8 @@ public class CheckingDaoImpl implements iCheckingDao {
     // overloads with long id
     public CheckingAccount get(long id) throws SQLException {
         CheckingAccount checkingAccount = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE account_number =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setLong(1, id);
@@ -48,6 +50,7 @@ public class CheckingDaoImpl implements iCheckingDao {
             long accountNumber = resultSet.getLong("account_number");
             checkingAccount = new CheckingAccount(accountNumber, balance, customerId);
         }
+        connectionPool.releaseConnection(connection);
         return checkingAccount;
     }
 
@@ -70,7 +73,8 @@ public class CheckingDaoImpl implements iCheckingDao {
     @Override
     public CheckingAccount getCheckingAccountBySsn(int ssn) throws SQLException {
         CheckingAccount checkingAccount = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE customers_id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, ssn);
@@ -81,6 +85,7 @@ public class CheckingDaoImpl implements iCheckingDao {
             long accountNumber = resultSet.getLong("account_number");
             checkingAccount = new CheckingAccount(accountNumber, balance, customerId);
         }
+        connectionPool.releaseConnection(connection);
         return checkingAccount;
     }
 }

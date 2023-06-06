@@ -1,15 +1,12 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.services;
 
+import com.solvd.bankapp.dao.daoMySQL.impl.AddressDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.BranchDaoImpl;
 import com.solvd.bankapp.dao.iAddressDao;
 import com.solvd.bankapp.dao.iBranchDao;
 import com.solvd.bankapp.model.Address;
 import com.solvd.bankapp.model.Branch;
-import com.solvd.bankapp.model.State;
-import com.solvd.bankapp.utils.ConnectionUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

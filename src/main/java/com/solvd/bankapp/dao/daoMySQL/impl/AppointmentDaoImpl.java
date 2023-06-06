@@ -1,11 +1,10 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iAppointmentDao;
 import com.solvd.bankapp.model.Appointment;
 import com.solvd.bankapp.model.Customer;
 import com.solvd.bankapp.model.Employee;
-import com.solvd.bankapp.model.LoanApplication;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +18,8 @@ public class AppointmentDaoImpl implements iAppointmentDao {
     @Override
     public int getCustomerSsnByAppointmentId(int id) throws SQLException {
         int ssn = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT customers_id FROM appointments WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -27,13 +27,15 @@ public class AppointmentDaoImpl implements iAppointmentDao {
         if (resultSet.next()){
             ssn = resultSet.getInt("customers_id");
         }
+        connectionPool.releaseConnection(connection);
         return ssn;
     }
 
     @Override
     public int getEmployeeIdByAppointmentId(int id) throws SQLException {
         int employeesId = 0;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT employees_id FROM appointments WHERE id =?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -41,13 +43,15 @@ public class AppointmentDaoImpl implements iAppointmentDao {
         if (resultSet.next()) {
             employeesId = resultSet.getInt("employees_id");
         }
+        connectionPool.releaseConnection(connection);
         return employeesId;
     }
 
     @Override
     public List<Appointment> getAll() throws SQLException {
         List<Appointment> appointmentsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT id, Reason, Completed, Employees_Id, Customers_Id FROM Appointments";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -59,6 +63,7 @@ public class AppointmentDaoImpl implements iAppointmentDao {
             Customer customer = null;
             appointmentsList.add(new Appointment(id, reason,completed,employee, customer));
         }
+        connectionPool.releaseConnection(connection);
         return appointmentsList;
     }
 
@@ -67,7 +72,8 @@ public class AppointmentDaoImpl implements iAppointmentDao {
     @Override
     public Appointment get(int id) throws SQLException {
         Appointment appointment = null;
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "SELECT Reason, Completed, Employees_Id, Customers_Id FROM Appointments WHERE id =? ";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -79,6 +85,7 @@ public class AppointmentDaoImpl implements iAppointmentDao {
             Customer customer = null;
             appointment = new Appointment(id, reason, completed, employee, customer);
         }
+        connectionPool.releaseConnection(connection);
         return appointment;
     }
 

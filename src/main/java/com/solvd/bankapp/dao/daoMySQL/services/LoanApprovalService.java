@@ -1,5 +1,7 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.services;
 
+import com.solvd.bankapp.dao.daoMySQL.impl.EmployeeDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.LoanApprovalDaoImpl;
 import com.solvd.bankapp.dao.iLoanApprovalDao;
 import com.solvd.bankapp.dao.iEmployeeDao;
 import com.solvd.bankapp.model.Employee;

@@ -1,9 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.services;
 
 import com.solvd.bankapp.dao.*;
-import com.solvd.bankapp.model.Address;
+import com.solvd.bankapp.dao.daoMySQL.impl.*;
 import com.solvd.bankapp.model.Employee;
-import com.solvd.bankapp.model.State;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

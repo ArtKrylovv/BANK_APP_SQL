@@ -1,8 +1,8 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.impl;
 
 import com.solvd.bankapp.dao.iDepartmentDao;
 import com.solvd.bankapp.model.Department;
-import com.solvd.bankapp.utils.ConnectionUtils;
+import com.solvd.bankapp.utils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,9 @@ public class DepartmentDaoImpl implements iDepartmentDao {
     @Override
     public List<Department> getAll() throws SQLException {
         List<Department> departmentsList = new ArrayList<>();
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
         String sql = "SELECT id, name FROM Departments";
         PreparedStatement ps =  connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
@@ -25,13 +27,14 @@ public class DepartmentDaoImpl implements iDepartmentDao {
             String departmentName = resultSet.getString("name");
             departmentsList.add(new Department(departmentId, departmentName));
         }
-
+        connectionPool.releaseConnection(connection);
         return departmentsList;
     }
 
     @Override
     public Department get(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         Department department = null;
         String sql = "SELECT id, name FROM departments WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -42,43 +45,47 @@ public class DepartmentDaoImpl implements iDepartmentDao {
             String name = rs.getString("name");
             department = new Department(departmentId, name);
         }
+        connectionPool.releaseConnection(connection);
         return department;
     }
 
     @Override
     public int create(Department department) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO departments(name) VALUES (?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, department.getName());
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int update(Department department) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "UPDATE Departments SET Name = ? WHERE Id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, department.getName());
         ps.setInt(2, department.getId());
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        Connection connection = ConnectionUtils.getConnection();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
         String sql = "DELETE FROM Departments WHERE Id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         int rs = ps.executeUpdate();
         ps.close();
-        connection.close();
+        connectionPool.releaseConnection(connection);
         return rs;
     }
 }

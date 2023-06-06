@@ -1,5 +1,7 @@
-package com.solvd.bankapp.dao.daoMySQL;
+package com.solvd.bankapp.dao.daoMySQL.services;
 
+import com.solvd.bankapp.dao.daoMySQL.impl.AddressDaoImpl;
+import com.solvd.bankapp.dao.daoMySQL.impl.StateDaoImpl;
 import com.solvd.bankapp.dao.iAddressDao;
 import com.solvd.bankapp.dao.iStateDao;
 import com.solvd.bankapp.model.Address;
