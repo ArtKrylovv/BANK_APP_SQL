@@ -1,12 +1,12 @@
 package com.solvd.bankapp;
 
 import com.solvd.bankapp.dao.daoMySQL.impl.*;
-import com.solvd.bankapp.dao.daoMySQL.services.AddressService;
-import com.solvd.bankapp.dao.daoMySQL.services.CustomerService;
-import com.solvd.bankapp.dao.daoMySQL.services.LoanApplicationService;
+import com.solvd.bankapp.dao.daoMySQL.services.*;
 import com.solvd.bankapp.model.*;
 import com.solvd.bankapp.utils.ConnectionPool;
 
+import javax.sound.midi.Soundbank;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -50,8 +50,30 @@ public class Main {
 //        // query created customer full info
 //        System.out.println(new CustomerService().get(777777777));
 
-        AddressService addressService = new AddressService();
+//        this.accountNumber = accountNumber;
+//        this.interest = interest;
+//        this.balance = balance;
+//        this.customerId = customerId;
 
+//        this.ssn = ssn;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.address = address;
+//        this.savingAccountsList = savingAccountsList;
+//        this.creditCardAccounts = creditCardAccounts;
+//        this.checkingAccount = checkingAccount;
+
+        AddressService addressService = new AddressService();
+        Address address = new Address(777, 100, "test",0, "Test", new State(1,"TE", "Test"));
+//        System.out.println(addressService.create(address));
+        CheckingAccount checkingAccount = new CheckingAccount();
+        List<SavingsAccount> savingsAccountList = new ArrayList<>();
+        List<CreditCardAccount> creditCardAccountList = new ArrayList<>();
+//        System.out.println(new CustomerService().create(new Customer(555555555, "Ivan", "Ivanov",
+//                address, savingsAccountList,creditCardAccountList, checkingAccount)));
+
+        System.out.println(new CustomerService().delete(555555555));
+        System.out.println(new CustomerService().getAll(false));
 
     }
 }

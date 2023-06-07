@@ -11,7 +11,6 @@ public class Customer {
     private List<CreditCardAccount> creditCardAccounts;
     private CheckingAccount checkingAccount;
 
-
     public Customer(int ssn, String firstName, String lastName, Address address,
                     List<SavingsAccount> savingAccountsList, List<CreditCardAccount> creditCardAccounts, CheckingAccount checkingAccount) {
         this.ssn = ssn;

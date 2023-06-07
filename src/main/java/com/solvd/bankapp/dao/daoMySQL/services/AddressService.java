@@ -38,6 +38,7 @@ public class AddressService {
     public List<Address> getAll(boolean full) throws SQLException {
         List<Address> addressesList = new ArrayList<>();
         if (full) {
+            // refactor with .stream().forEach()
             for (Address address : addressDao.getAll()) {
                 int stateId = addressDao.getStateIdByAddressId(address.getId());
                 address.setState(stateDao.get(stateId));

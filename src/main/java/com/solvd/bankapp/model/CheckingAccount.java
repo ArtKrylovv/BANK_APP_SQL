@@ -11,6 +11,9 @@ public class CheckingAccount {
         this.customerId = customerId;
     }
 
+    public CheckingAccount() {
+    }
+
     public long getAccountNumber() {
         return accountNumber;
     }
