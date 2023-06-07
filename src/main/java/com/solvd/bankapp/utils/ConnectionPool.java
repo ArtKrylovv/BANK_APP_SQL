@@ -17,20 +17,20 @@ public class ConnectionPool {
     private List<Connection> connectionList;
 
     // constructor must be private
-    private ConnectionPool() throws SQLException {
+    private ConnectionPool() {
         connectionList = new ArrayList<>();
         initializeConnections();
     }
 
     // ensures thread safety + single instance of Connection pool
-    public static synchronized ConnectionPool getInstance () throws SQLException {
+    public static synchronized ConnectionPool getInstance () {
         if (connectionPool == null) {
             connectionPool = new ConnectionPool();
         }
         return connectionPool;
     }
     // initializing 5 connections
-    private void initializeConnections() throws SQLException {
+    private void initializeConnections()  {
         for (int i = 0; i < 5; i++) {
             Properties props = new Properties();
             try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -41,8 +41,12 @@ public class ConnectionPool {
                 System.out.println(e.getMessage());
             }
             // adds connection to the list
-            Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
-            connectionList.add(connection);
+            try {
+                Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
+                connectionList.add(connection);
+            } catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
     // returns connection if the connections list is not empty
