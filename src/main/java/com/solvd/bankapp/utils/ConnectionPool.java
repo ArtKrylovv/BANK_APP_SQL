@@ -1,9 +1,8 @@
 package com.solvd.bankapp.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,6 +12,7 @@ import java.util.Properties;
 
 public class ConnectionPool {
     // connection pool object is not created at class compilation, allowing for lazy initialization
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     public static ConnectionPool connectionPool;
     private List<Connection> connectionList;
 
@@ -32,20 +32,12 @@ public class ConnectionPool {
     // initializing 5 connections
     private void initializeConnections()  {
         for (int i = 0; i < 5; i++) {
-            Properties props = new Properties();
-            try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
-                props.load(input);
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            // adds connection to the list
+            Properties props = PropertiesDb.get();
             try {
                 Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
                 connectionList.add(connection);
             } catch (SQLException e){
-                System.out.println(e.getMessage());
+                LOGGER.error(e.getMessage());
             }
         }
     }
@@ -55,7 +47,7 @@ public class ConnectionPool {
             try {
                 wait();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         }
      Connection connection = connectionList.remove(connectionList.size()-1);
