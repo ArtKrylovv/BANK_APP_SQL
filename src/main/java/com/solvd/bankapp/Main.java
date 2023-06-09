@@ -56,5 +56,9 @@ public class Main {
         LOGGER.info(checkingService.readAllFromDb());
         LOGGER.info(customerService.readAllFromDb(false));
         LOGGER.info(addressService.readAllFromDb(false));
+
+        // pareses xml
+        CustomerParserService customerParserService = new CustomerParserService();
+        LOGGER.info(customerParserService.getResult("src/main/resources/xml/customer.xml"));
     }
 }

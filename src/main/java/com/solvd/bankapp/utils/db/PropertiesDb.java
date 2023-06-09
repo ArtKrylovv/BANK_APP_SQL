@@ -1,12 +1,11 @@
-package com.solvd.bankapp.utils;
+package com.solvd.bankapp.utils.db;
 
 import org.apache.logging.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import org.apache.logging.log4j.LogManager;
 
 
 public class PropertiesDb {

@@ -1,4 +1,4 @@
-package com.solvd.bankapp.utils;
+package com.solvd.bankapp.utils.db;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

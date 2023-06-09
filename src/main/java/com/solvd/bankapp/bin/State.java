@@ -11,6 +11,9 @@ public class State {
         this.name = name;
     }
 
+    public State() {
+    }
+
     public int getId() {
         return id;
     }

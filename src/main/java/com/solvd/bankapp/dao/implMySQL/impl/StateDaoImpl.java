@@ -2,7 +2,7 @@ package com.solvd.bankapp.dao.implMySQL.impl;
 
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.State;
-import com.solvd.bankapp.utils.ConnectionPool;
+import com.solvd.bankapp.utils.db.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
