@@ -16,12 +16,12 @@ import java.util.List;
 public class CustomerDaoImpl implements ICustomerDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CustomerDaoImpl.class);
-    String sqlGetAll = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers";
-    String sqlGetById = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers WHERE SSN =?";
-    String sqlCreate = "INSERT INTO Customers (SSN, First_name, Last_name, Addresses_Id) VALUES (?, ?, ?, ?)";
-    String sqlUpdate = "UPDATE Customers SET First_name =?, Last_name =?, Addresses_Id =? WHERE SSN =?";
-    String sqlDelete = "DELETE FROM Customers WHERE SSN = ?";
-    String sqlGetAddressIdBySsn = "SELECT Addresses_Id FROM Customers WHERE SSN=?";
+    private static final String sqlGetAll = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers";
+    private static final String sqlGetById = "SELECT SSN, First_name, Last_name, Addresses_Id FROM Customers WHERE SSN =?";
+    private static final String sqlCreate = "INSERT INTO Customers (SSN, First_name, Last_name, Addresses_Id) VALUES (?, ?, ?, ?)";
+    private static final String sqlUpdate = "UPDATE Customers SET First_name =?, Last_name =?, Addresses_Id =? WHERE SSN =?";
+    private static final String sqlDelete = "DELETE FROM Customers WHERE SSN = ?";
+    private static final String sqlGetAddressIdBySsn = "SELECT Addresses_Id FROM Customers WHERE SSN=?";
 
     @Override
     public List<Customer> getAll() {

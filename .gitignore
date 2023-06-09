@@ -2,8 +2,10 @@
 target/
 # IDE files
 .idea/
+*.DS_Store
 *.iml
 *.iws
 *.ipr
 
 src/main/resources/ToDo.txt
+src/main/java/com/solvd/bankapp/Test.java

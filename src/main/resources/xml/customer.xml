@@ -1,0 +1,19 @@
+<customer ssn="3">
+  <firstName>Winston</firstName>
+  <lastName>Churchill</lastName>
+  <checkingAccount accountNumber="1234567812345678">
+    <balance>1940</balance>
+    <customerId>12345678987</customerId>
+  </checkingAccount>
+  <address id="111">
+    <houseNumber>1</houseNumber>
+    <streetName>Victory</streetName>
+    <!--Optional:-->
+    <aptNumber/>
+    <city>Boston</city>
+    <state id="11">
+      <name>Massachusetts</name>
+      <abbreviation>MA</abbreviation>
+    </state>
+  </address>
+</customer>

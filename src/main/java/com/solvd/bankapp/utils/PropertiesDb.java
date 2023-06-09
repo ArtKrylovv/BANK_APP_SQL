@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class PropertiesDb {
     private static final Logger LOGGER = LogManager.getLogger(PropertiesDb.class);
-    private static final String PROPERTIES = "src/main/resources/db.properties";
+    private static final String PROPERTIES = "src/main/resources//db/db.properties";
 
     public static Properties get() {
         Properties props = new Properties();

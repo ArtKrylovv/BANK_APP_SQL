@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="customer">
+        <!-- all for any order of children, max 1 min 0, sequence - specific order-->
+        <xs:all>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="lastName" type="xs:string"/>
+            <xs:element name="checkingAccount" type="checkingAccount" />
+            <xs:element name="address" type="address" />
+        </xs:all>
+        <xs:attribute ref="ssn"/>
+        </xs:complexType>
+
+    <!-- attribute-->
+    <!--cannot be 0-->
+    <xs:attribute name="ssn">
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="1"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+
+    <xs:complexType name="checkingAccount">
+        <xs:all>
+            <xs:element name="balance">
+                <xs:simpleType>
+                    <xs:restriction base ="xs:long">
+                        <xs:minInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element >
+            <xs:element name="customerId" type="xs:int" />
+        </xs:all>
+        <xs:attribute ref="accountNumber"/>
+    </xs:complexType>
+
+    <!-- attribute-->
+    <!--cannot be 0-->
+    <xs:attribute name="accountNumber">
+        <xs:simpleType>
+            <xs:restriction base="xs:long">
+                <xs:minInclusive value="1"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:complexType name="address">
+        <xs:all>
+            <xs:element name="houseNumber" type="xs:int" />
+            <xs:element name="streetName" type="xs:int" />
+            <!-- optional field -->
+            <xs:element name="aptNumber" type="xs:int" minOccurs="0"/>
+            <xs:element name="city" type="xs:string" />
+            <xs:element name="state" type="state" />
+        </xs:all>
+        <!-- do not specify type for attribute refs-->
+        <xs:attribute ref="id"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="state">
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="abbreviation" type="xs:string" />
+        </xs:all>
+        <xs:attribute ref="id"/>
+    </xs:complexType>
+
+    <!-- attribute-->
+    <!--cannot be 0-->
+    <xs:attribute name="id">
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="1"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <!-- root element-->
+    <xs:element name="customer" type="customer"/>
+</xs:schema>

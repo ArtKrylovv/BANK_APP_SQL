@@ -54,7 +54,7 @@ public class Main {
         LOGGER.info(savingsService.readAllFromDb());
         LOGGER.info(creditCardService.readAllFromDb());
         LOGGER.info(checkingService.readAllFromDb());
-        LOGGER.info(customerService.readAllFromDb(true));
-        LOGGER.info(addressService.readAllFromDb(true));
+        LOGGER.info(customerService.readAllFromDb(false));
+        LOGGER.info(addressService.readAllFromDb(false));
     }
 }
