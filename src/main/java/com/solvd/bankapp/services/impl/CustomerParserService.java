@@ -38,4 +38,9 @@ public class CustomerParserService implements IParserService <Customer>{
         customer.setAddress(address);
         return customer;
     }
+
+    @Override
+    public boolean isValid(String uriXml) {
+        return false;
+    }
 }
