@@ -58,6 +58,6 @@ public class Main {
         // sax parser
         ICustomerParserService customerParserService = new CustomerParserService();
         LOGGER.info(customerParserService.getResult("src/main/resources/xml/customer.xml"));
-
+        LOGGER.info(customerParserService.validate("src/main/resources/xml/customer.xml"));
     }
 }

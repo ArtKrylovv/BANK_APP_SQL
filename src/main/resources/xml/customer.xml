@@ -9,7 +9,7 @@
     <houseNumber>1</houseNumber>
     <streetName>Victory</streetName>
     <!--Optional:-->
-    <aptNumber/>
+<!--    <aptNumber></aptNumber>-->
     <city>Boston</city>
     <state id="11">
       <name>Massachusetts</name>

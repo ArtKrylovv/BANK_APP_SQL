@@ -16,12 +16,12 @@ import java.util.List;
 public class CheckingDaoImpl implements ICheckingDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CheckingDaoImpl.class);
-    String sqlGetAll = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts";
-    String sqlGetById = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE account_number =?";
-    String sqlCreate = "INSERT INTO Checking_accounts (Balance, Customers_Id) VALUES (?, ?)";
-    String sqlUpdate = "UPDATE Checking_accounts SET Balance=?, Customers_Id=? WHERE Account_number= ?";
-    String sqlDelete = "DELETE FROM Checking_accounts WHERE Account_number= ?";
-    String sqlGetCheckingAccountBySsn = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE customers_id =?";
+    private static String sqlGetAll = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts";
+    private static String sqlGetById = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE account_number =?";
+    private static String sqlCreate = "INSERT INTO Checking_accounts (Balance, Customers_Id) VALUES (?, ?)";
+    private static String sqlUpdate = "UPDATE Checking_accounts SET Balance=?, Customers_Id=? WHERE Account_number= ?";
+    private static String sqlDelete = "DELETE FROM Checking_accounts WHERE Account_number= ?";
+    private static String sqlGetCheckingAccountBySsn = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE customers_id =?";
 
 
     @Override

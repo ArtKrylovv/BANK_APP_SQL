@@ -52,7 +52,7 @@
             <xs:element name="houseNumber" type="xs:int" />
             <xs:element name="streetName" type="xs:string" />
             <!-- optional field -->
-            <xs:element name="aptNumber" type="xs:int" nillable="true"/>
+            <xs:element name="aptNumber" type="xs:int" minOccurs="0"/>
             <xs:element name="city" type="xs:string" />
             <xs:element name="state" type="state" />
         </xs:all>
