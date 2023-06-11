@@ -5,8 +5,6 @@ import com.solvd.bankapp.services.*;
 import com.solvd.bankapp.services.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +55,9 @@ public class Main {
         LOGGER.info(customerService.readAllFromDb(false));
         LOGGER.info(addressService.readAllFromDb(false));
 
-        // pareses xml
-        CustomerParserService customerParserService = new CustomerParserService();
+        // sax parser
+        ICustomerParserService customerParserService = new CustomerParserService();
         LOGGER.info(customerParserService.getResult("src/main/resources/xml/customer.xml"));
+
     }
 }

@@ -1,5 +1,4 @@
-package com.solvd.bankapp.dao.implMySQL.impl;
-
+package com.solvd.bankapp.dao.impl;
 import com.solvd.bankapp.dao.IAddressDao;
 import com.solvd.bankapp.bin.Address;
 import com.solvd.bankapp.bin.State;
@@ -12,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class AddressDaoImpl implements IAddressDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();

@@ -3,7 +3,7 @@
   <lastName>Churchill</lastName>
   <checkingAccount accountNumber="1234567812345678">
     <balance>1940</balance>
-    <customerId>12345678987</customerId>
+    <customerId>123456789</customerId>
   </checkingAccount>
   <address id="111">
     <houseNumber>1</houseNumber>

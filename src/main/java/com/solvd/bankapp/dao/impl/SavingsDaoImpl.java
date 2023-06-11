@@ -1,7 +1,7 @@
-package com.solvd.bankapp.dao.implMySQL.impl;
+package com.solvd.bankapp.dao.impl;
 
-import com.solvd.bankapp.dao.ICreditCardDao;
-import com.solvd.bankapp.bin.CreditCardAccount;
+import com.solvd.bankapp.dao.ISavingsDao;
+import com.solvd.bankapp.bin.SavingsAccount;
 import com.solvd.bankapp.utils.db.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,19 +13,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCardDaoImpl implements ICreditCardDao {
+public class SavingsDaoImpl implements ISavingsDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String sqlGetAll = "SELECT Balance, Interest, Customers_Id, account_number FROM Credit_card_accounts";
-    private static final String sqlGetById = "SELECT Balance, Interest, Customers_Id FROM Credit_card_accountsv WHERE account_number =?";
-    private static final String sqlCreate = "INSERT into Credit_card_accounts (Balance, Interest, Customers_Id) VALUES (?,?,?)";
-    private static final String getCreditAccountsListBySsn = "SELECT Balance, Interest, Customers_Id, Account_number FROM Credit_card_accounts WHERE Customers_Id =?";
-    private static final String sqlUpdate = "UPDATE Credit_card_accounts SET Balance =?, Interest=?, Customers_Id=? WHERE account_number =?";
-    private static final String sqlDelete = "DELETE FROM Credit_card_accounts WHERE account_number = ?";
-    private static final Logger LOGGER = LogManager.getLogger(CreditCardDaoImpl.class);
+    private static final String sqlGetAll = "SELECT Balance, Interest, Customers_Id, account_number FROM Saving_accounts";
+    private static final String sqlGetById = "SELECT Balance, Interest, Customers_Id FROM Saving_accounts WHERE account_number =?";
+    private static final String sqlCreate = "INSERT into Saving_accounts (Balance, Interest, Customers_Id) VALUES (?,?,?)";
+    private static final String getSavingsAccountsListBySsn = "SELECT Balance, Interest, Customers_Id, Account_number FROM Saving_accounts WHERE Customers_Id =?";
+    private static final String sqlUpdate = "UPDATE Saving_accounts SET Balance =?, Interest=?, Customers_Id=? WHERE account_number =?";
+    private static final String sqlDelete = "DELETE FROM Saving_accounts WHERE account_number = ?";
+    private static final Logger LOGGER = LogManager.getLogger(SavingsAccount.class);
 
     @Override
-    public List<CreditCardAccount> getAll() {
-        List<CreditCardAccount> creditCardAccounts = new ArrayList<>();
+    public List<SavingsAccount> getAll() {
+        List<SavingsAccount> savingAccountsList = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(sqlGetAll);
              ResultSet resultSet = ps.executeQuery()){
@@ -34,23 +34,23 @@ public class CreditCardDaoImpl implements ICreditCardDao {
                 double interest = resultSet.getDouble("interest");
                 int customerId = resultSet.getInt("customers_id");
                 long accountNumber = resultSet.getLong("account_number");
-                creditCardAccounts.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
+                savingAccountsList.add(new SavingsAccount(accountNumber, interest, balance, customerId));
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return creditCardAccounts;
+        return savingAccountsList;
     }
 
     @Override
-    public CreditCardAccount get(int id) {
+    public SavingsAccount get(int id) {
         throw new UnsupportedOperationException("use overloaded method with long type");
     }
-    @Override
-    public CreditCardAccount get(long id) {
-        CreditCardAccount creditCardAccount = null;
+    // overloads with long id
+    public SavingsAccount get(long id) {
+        SavingsAccount savingsAccount = null;
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(sqlGetById)) {
             ps.setLong(1, id);
@@ -59,7 +59,7 @@ public class CreditCardDaoImpl implements ICreditCardDao {
                     long balance = resultSet.getLong("balance");
                     double interest = resultSet.getDouble("interest");
                     int customerId = resultSet.getInt("customers_id");
-                    creditCardAccount = new CreditCardAccount(id, interest, balance, customerId);
+                    savingsAccount = new SavingsAccount(id, interest, balance, customerId);
                 }
             }
             } catch (SQLException e) {
@@ -67,17 +67,17 @@ public class CreditCardDaoImpl implements ICreditCardDao {
             } finally {
                 connectionPool.releaseConnection(connection);
         }
-        return creditCardAccount;
+        return savingsAccount;
     }
 
     @Override
-    public int create(CreditCardAccount creditCardAccount) {
+    public int create(SavingsAccount savingsAccount) {
         Connection connection = connectionPool.getConnection();
         int rs = 0;
         try (PreparedStatement ps = connection.prepareStatement(sqlCreate)){
-            ps.setLong(1, creditCardAccount.getBalance());
-            ps.setDouble(2, creditCardAccount.getInterest());
-            ps.setInt(3, creditCardAccount.getCustomerId());
+            ps.setLong(1, savingsAccount.getBalance());
+            ps.setDouble(2, savingsAccount.getInterest());
+            ps.setInt(3, savingsAccount.getCustomerId());
             rs = ps.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -88,14 +88,14 @@ public class CreditCardDaoImpl implements ICreditCardDao {
     }
 
     @Override
-    public int update(CreditCardAccount creditCardAccount) {
+    public int update(SavingsAccount savingsAccount) {
         Connection connection = connectionPool.getConnection();
         int rs = 0;
         try (PreparedStatement ps = connection.prepareStatement(sqlUpdate)){
-            ps.setLong(1, creditCardAccount.getBalance());
-            ps.setDouble(2, creditCardAccount.getInterest());
-            ps.setInt(3, creditCardAccount.getCustomerId());
-            ps.setLong(4, creditCardAccount.getAccountNumber());
+            ps.setLong(1, savingsAccount.getBalance());
+            ps.setDouble(2, savingsAccount.getInterest());
+            ps.setInt(3, savingsAccount.getCustomerId());
+            ps.setLong(4, savingsAccount.getAccountNumber());
             rs = ps.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -109,7 +109,7 @@ public class CreditCardDaoImpl implements ICreditCardDao {
         throw new UnsupportedOperationException("use overloaded method with long type");
     }
 
-    @Override
+    // overloads with long id
     public int delete(long id) {
         Connection connection = connectionPool.getConnection();
         int rs = 0;
@@ -125,10 +125,10 @@ public class CreditCardDaoImpl implements ICreditCardDao {
     }
 
     @Override
-    public List<CreditCardAccount> getCreditCardAccountsListBySsn(int ssn) {
-        List<CreditCardAccount> creditCardAccountList = new ArrayList<>();
+    public List<SavingsAccount> getSavingsAccountsListBySsn(int ssn) {
+        List<SavingsAccount> savingsAccountsList = new ArrayList<>();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(getCreditAccountsListBySsn)) {
+        try (PreparedStatement ps = connection.prepareStatement(getSavingsAccountsListBySsn)) {
             ps.setInt(1, ssn);
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
@@ -136,7 +136,7 @@ public class CreditCardDaoImpl implements ICreditCardDao {
                     double interest = resultSet.getDouble("interest");
                     int customerId = resultSet.getInt("customers_id");
                     long accountNumber = resultSet.getLong("account_number");
-                    creditCardAccountList.add(new CreditCardAccount(accountNumber, interest, balance, customerId));
+                    savingsAccountsList.add(new SavingsAccount(accountNumber, interest, balance, customerId));
                 }
             }
         } catch (SQLException e){
@@ -144,6 +144,6 @@ public class CreditCardDaoImpl implements ICreditCardDao {
         } finally {
             connectionPool.releaseConnection(connection);
         }
-        return creditCardAccountList;
+        return savingsAccountsList;
     }
 }

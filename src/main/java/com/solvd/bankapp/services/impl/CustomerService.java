@@ -1,12 +1,12 @@
 package com.solvd.bankapp.services.impl;
 
 import com.solvd.bankapp.dao.*;
-import com.solvd.bankapp.dao.implMySQL.impl.*;
+import com.solvd.bankapp.dao.impl.*;
 import com.solvd.bankapp.bin.*;
 import com.solvd.bankapp.services.ICustomerService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,13 +1,12 @@
 package com.solvd.bankapp.services.impl;
 
-import com.solvd.bankapp.dao.implMySQL.impl.CreditCardDaoImpl;
+import com.solvd.bankapp.dao.impl.CreditCardDaoImpl;
 import com.solvd.bankapp.dao.ICreditCardDao;
 import com.solvd.bankapp.bin.CreditCardAccount;
 import com.solvd.bankapp.services.ICreditCardService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CreditCardService implements ICreditCardService {

@@ -4,7 +4,6 @@ import com.solvd.bankapp.bin.Address;
 import com.solvd.bankapp.bin.Customer;
 import com.solvd.bankapp.handlers.AddressHandler;
 import com.solvd.bankapp.handlers.CustomerHandler;
-import com.solvd.bankapp.services.IParserService;
 import com.solvd.bankapp.utils.parser.Parser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +12,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 
-public class CustomerParserService implements IParserService <Customer>{
+public class CustomerParserService implements ICustomerParserService {
     private static final Logger LOGGER = LogManager.getLogger(CustomerParserService.class);
 
     @Override

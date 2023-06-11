@@ -1,7 +1,7 @@
 package com.solvd.bankapp.services.impl;
 
-import com.solvd.bankapp.dao.implMySQL.impl.AddressDaoImpl;
-import com.solvd.bankapp.dao.implMySQL.impl.StateDaoImpl;
+import com.solvd.bankapp.dao.impl.AddressDaoImpl;
+import com.solvd.bankapp.dao.impl.StateDaoImpl;
 import com.solvd.bankapp.dao.IAddressDao;
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.Address;
@@ -10,7 +10,6 @@ import com.solvd.bankapp.services.IAddressService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

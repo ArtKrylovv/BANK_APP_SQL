@@ -1,4 +1,4 @@
-package com.solvd.bankapp.dao.implMySQL.impl;
+package com.solvd.bankapp.dao.impl;
 
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.State;

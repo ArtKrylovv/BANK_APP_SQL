@@ -1,13 +1,12 @@
 package com.solvd.bankapp.services.impl;
 
-import com.solvd.bankapp.dao.implMySQL.impl.StateDaoImpl;
+import com.solvd.bankapp.dao.impl.StateDaoImpl;
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.State;
 import com.solvd.bankapp.services.IStateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class StateService implements IStateService {

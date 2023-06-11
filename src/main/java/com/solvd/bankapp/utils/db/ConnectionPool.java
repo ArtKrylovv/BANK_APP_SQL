@@ -14,7 +14,7 @@ public class ConnectionPool {
     // connection pool object is not created at class compilation, allowing for lazy initialization
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     public static ConnectionPool connectionPool;
-    private List<Connection> connectionList;
+    private final List<Connection> connectionList;
 
     // constructor must be private
     private ConnectionPool() {

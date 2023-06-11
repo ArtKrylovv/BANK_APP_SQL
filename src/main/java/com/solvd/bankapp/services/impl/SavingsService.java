@@ -1,13 +1,12 @@
 package com.solvd.bankapp.services.impl;
 
-import com.solvd.bankapp.dao.implMySQL.impl.SavingsDaoImpl;
+import com.solvd.bankapp.dao.impl.SavingsDaoImpl;
 import com.solvd.bankapp.dao.ISavingsDao;
 import com.solvd.bankapp.bin.SavingsAccount;
 import com.solvd.bankapp.services.ISavingsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class SavingsService implements ISavingsService {

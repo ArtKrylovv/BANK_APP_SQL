@@ -1,6 +1,6 @@
 package com.solvd.bankapp.services.impl;
 
-import com.solvd.bankapp.dao.implMySQL.impl.CheckingDaoImpl;
+import com.solvd.bankapp.dao.impl.CheckingDaoImpl;
 import com.solvd.bankapp.dao.ICheckingDao;
 import com.solvd.bankapp.bin.CheckingAccount;
 import com.solvd.bankapp.services.ICheckingService;
