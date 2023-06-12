@@ -1,14 +1,26 @@
 package com.solvd.bankapp.bin;
 
-import java.util.List;
+import jakarta.xml.bind.annotation.*;
 
+import java.util.List;
+@XmlRootElement(name="customer")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Customer {
+    @XmlAttribute
     private int ssn;
+    @XmlElement(name="firstName")
     private String firstName;
+    @XmlElement(name="lastName")
     private String lastName;
+    @XmlElement(name="address")
     private Address address;
+    @XmlElementWrapper(name="savingsAccounts")
+    @XmlElement(name="account")
     private List<SavingsAccount> savingAccountsList;
+    @XmlElementWrapper(name="creditCardAccounts")
+    @XmlElement(name="account")
     private List<CreditCardAccount> creditCardAccounts;
+    @XmlElement(name="checkingAccount")
     private CheckingAccount checkingAccount;
 
     public Customer(int ssn, String firstName, String lastName, Address address,

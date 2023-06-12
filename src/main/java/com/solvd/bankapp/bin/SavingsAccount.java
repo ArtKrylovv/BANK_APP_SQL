@@ -1,9 +1,16 @@
 package com.solvd.bankapp.bin;
 
+import jakarta.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SavingsAccount {
+    @XmlAttribute
     private long accountNumber;
+    @XmlElement(name="interest")
     private double interest;
+    @XmlElement(name="balance")
     private long balance;
+    @XmlTransient
     private int customerId;
 
     public SavingsAccount(long accountNumber, double interest, long balance, int customerId) {

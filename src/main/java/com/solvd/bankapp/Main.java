@@ -59,5 +59,28 @@ public class Main {
         ICustomerParserService customerParserService = new CustomerParserService();
         LOGGER.info(customerParserService.getResult("src/main/resources/xml/customer.xml"));
         LOGGER.info(customerParserService.validate("src/main/resources/xml/customer.xml"));
+
+        // JAXB marsahlling
+        State state = new State(99, "TE", "Test");
+        Address address1 = new Address(99, 9, "Test", 0, "Test", state);
+        CheckingAccount checkingAccount1 = new CheckingAccount(9999999999999999L, 99,0);
+        SavingsAccount savingsAccount1 = new SavingsAccount(9999999999999998L,0.03, 99, 0 );
+        SavingsAccount savingsAccount2 = new SavingsAccount(9999999999999997L,0.03, 88, 0 );
+        CreditCardAccount creditCardAccount1 = new CreditCardAccount(9999999999999996L, 0.25, 0, 0);
+        CreditCardAccount creditCardAccount2 = new CreditCardAccount(9999999999999995L, 0.30, 99, 0);
+
+        List<SavingsAccount> listSavings = new ArrayList<>();
+        List <CreditCardAccount> listCards = new ArrayList<>();
+        listSavings.add(savingsAccount1);
+        listSavings.add(savingsAccount2);
+        listCards.add(creditCardAccount1);
+
+        listCards.add(creditCardAccount2);
+        Customer customer = new Customer(99999999, "Joe", "Doe", address1,
+                listSavings, listCards, checkingAccount1);
+        customerParserService.marshall(customer);
+
+        // JAXB unmarshalling
+        LOGGER.info(customerParserService.unmarshall("src/main/resources/xml/jaxb_input.xml"));
     }
 }

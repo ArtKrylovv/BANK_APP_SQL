@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer ssn="99999999">
+    <firstName>Jane</firstName>
+    <lastName>Doe</lastName>
+    <address id="99">
+        <houseNumber>9</houseNumber>
+        <streetName>Test</streetName>
+        <aptNumber>0</aptNumber>
+        <city>Test</city>
+        <state id="99">
+            <abbreviation>TE</abbreviation>
+            <name>Test</name>
+        </state>
+    </address>
+    <savingsAccounts>
+        <account accountNumber="9999999999999998">
+            <interest>0.03</interest>
+            <balance>99</balance>
+        </account>
+        <account accountNumber="9999999999999997">
+            <interest>0.03</interest>
+            <balance>88</balance>
+        </account>
+    </savingsAccounts>
+    <creditCardAccounts>
+        <account accountNumber="9999999999999996">
+            <interest>0.25</interest>
+            <balance>0</balance>
+        </account>
+        <account accountNumber="9999999999999995">
+            <interest>0.3</interest>
+            <balance>99</balance>
+        </account>
+    </creditCardAccounts>
+    <checkingAccount accountNumber="9999999999999999">
+        <balance>99</balance>
+    </checkingAccount>
+</customer>

@@ -1,9 +1,16 @@
 package com.solvd.bankapp.bin;
 
+import jakarta.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CreditCardAccount {
+    @XmlAttribute
     private long accountNumber;
+    @XmlElement(name="interest")
     private double interest;
+    @XmlElement(name="balance")
     private long balance;
+    @XmlTransient
     private int customerId;
 
     public CreditCardAccount(long accountNumber, double interest, long balance,  int customerId) {
@@ -11,6 +18,9 @@ public class CreditCardAccount {
         this.interest = interest;
         this.balance = balance;
         this.customerId = customerId;
+    }
+
+    public CreditCardAccount() {
     }
 
     public long getAccountNumber() {

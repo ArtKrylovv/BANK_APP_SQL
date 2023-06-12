@@ -1,8 +1,14 @@
 package com.solvd.bankapp.bin;
 
+import jakarta.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CheckingAccount {
+    @XmlAttribute
     private long accountNumber;
+    @XmlElement(name="balance")
     private long balance;
+    @XmlTransient
     private int customerId;
 
     public CheckingAccount(long accountNumber,long balance, int customerId) {

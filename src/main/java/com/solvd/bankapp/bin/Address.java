@@ -1,11 +1,23 @@
 package com.solvd.bankapp.bin;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
+    @XmlAttribute
     private int id;
+    @XmlElement(name="houseNumber")
     private int houseNumber;
+    @XmlElement(name="streetName")
     private String streetName;
+    @XmlElement(name="aptNumber")
     private int aptNumber;
+    @XmlElement(name="city")
     private String city;
+    @XmlElement(name="state")
     private State state;
 
     public Address(int id, int houseNumber, String streetName, int aptNumber, String city, State state) {
