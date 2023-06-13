@@ -60,7 +60,7 @@ public class Main {
         LOGGER.info(customerParserService.getResult("src/main/resources/xml/customer.xml"));
         LOGGER.info(customerParserService.validate("src/main/resources/xml/customer.xml"));
 
-        // JAXB marsahlling
+        // JAXB marshalling
         State state = new State(99, "TE", "Test");
         Address address1 = new Address(99, 9, "Test", 0, "Test", state);
         CheckingAccount checkingAccount1 = new CheckingAccount(9999999999999999L, 99,0);
@@ -78,6 +78,7 @@ public class Main {
         listCards.add(creditCardAccount2);
         Customer customer = new Customer(99999999, "Joe", "Doe", address1,
                 listSavings, listCards, checkingAccount1);
+        // JAXB marshalling
         customerParserService.marshall(customer);
 
         // JAXB unmarshalling
