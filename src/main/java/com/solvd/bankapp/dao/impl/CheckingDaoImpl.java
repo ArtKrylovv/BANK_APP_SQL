@@ -11,18 +11,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class CheckingDaoImpl implements ICheckingDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CheckingDaoImpl.class);
-    private static String sqlGetAll = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts";
-    private static String sqlGetById = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE account_number =?";
-    private static String sqlCreate = "INSERT INTO Checking_accounts (Balance, Customers_Id) VALUES (?, ?)";
-    private static String sqlUpdate = "UPDATE Checking_accounts SET Balance=?, Customers_Id=? WHERE Account_number= ?";
+    private static String sqlGetAll = "SELECT Balance, Customers_Id, account_number, date_created FROM Checking_accounts";
+    private static String sqlGetById = "SELECT Balance, Customers_Id, account_number, date_created FROM Checking_accounts WHERE account_number =?";
+    private static String sqlCreate = "INSERT INTO Checking_accounts (Balance, Customers_Id, Date_created) VALUES (?, ?, ?)";
+    private static String sqlUpdate = "UPDATE Checking_accounts SET Balance=?, Customers_Id=?, Date_Created=? WHERE Account_number= ?";
     private static String sqlDelete = "DELETE FROM Checking_accounts WHERE Account_number= ?";
-    private static String sqlGetCheckingAccountBySsn = "SELECT Balance, Customers_Id, account_number FROM Checking_accounts WHERE customers_id =?";
-
+    private static String sqlGetCheckingAccountBySsn = "SELECT Balance, Customers_Id, Date_created, account_number FROM Checking_accounts WHERE customers_id =?";
 
     @Override
     public List<CheckingAccount> getAll() {
@@ -34,7 +34,9 @@ public class CheckingDaoImpl implements ICheckingDao {
                 long balance = resultSet.getLong("balance");
                 int customerId = resultSet.getInt("customers_id");
                 long accountNumber = resultSet.getLong("account_number");
-                checkingAccountsList.add(new CheckingAccount(accountNumber, balance, customerId));
+                Date date = resultSet.getDate("date_created");
+                CheckingAccount checkingAccount = new CheckingAccount(accountNumber,balance,customerId ,date);
+                checkingAccountsList.add(checkingAccount);
             }
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
@@ -60,7 +62,8 @@ public class CheckingDaoImpl implements ICheckingDao {
                     long balance = resultSet.getLong("balance");
                     int customerId = resultSet.getInt("customers_id");
                     long accountNumber = resultSet.getLong("account_number");
-                    checkingAccount = new CheckingAccount(accountNumber, balance, customerId);
+                    Date date = resultSet.getDate("date_created");
+                    checkingAccount = new CheckingAccount(accountNumber,balance,customerId ,date);
                 }
             }
         } catch (SQLException e) {
@@ -78,6 +81,7 @@ public class CheckingDaoImpl implements ICheckingDao {
         try (PreparedStatement ps = connection.prepareStatement(sqlCreate)) {
             ps.setLong(1, checkingAccount.getBalance());
             ps.setInt(2, checkingAccount.getCustomerId());
+            ps.setDate(3, new java.sql.Date(checkingAccount.getDateCreated().getTime()));
             rs = ps.executeUpdate();
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
@@ -94,7 +98,8 @@ public class CheckingDaoImpl implements ICheckingDao {
         try (PreparedStatement ps = connection.prepareStatement(sqlUpdate)) {
             ps.setLong(1, checkingAccount.getBalance());
             ps.setInt(2, checkingAccount.getCustomerId());
-            ps.setLong(3, checkingAccount.getAccountNumber());
+            ps.setDate(3, new java.sql.Date(checkingAccount.getDateCreated().getTime()));
+            ps.setLong(4, checkingAccount.getAccountNumber());
             rs = ps.executeUpdate();
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
@@ -136,7 +141,8 @@ public class CheckingDaoImpl implements ICheckingDao {
                     long balance = resultSet.getLong("balance");
                     int customerId = resultSet.getInt("customers_id");
                     long accountNumber = resultSet.getLong("account_number");
-                    checkingAccount = new CheckingAccount(accountNumber, balance, customerId);
+                    Date date = resultSet.getDate("date_created");
+                    checkingAccount = new CheckingAccount(accountNumber,balance,customerId ,date);
                 }
             }
         } catch (SQLException e) {

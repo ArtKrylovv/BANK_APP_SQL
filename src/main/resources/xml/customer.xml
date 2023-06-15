@@ -4,6 +4,7 @@
   <checkingAccount accountNumber="1234567812345678">
     <balance>1940</balance>
     <customerId>123456789</customerId>
+    <dateCreated>1939-01-01</dateCreated>
   </checkingAccount>
   <address id="111">
     <houseNumber>1</houseNumber>

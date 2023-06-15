@@ -28,11 +28,13 @@
             <xs:element name="balance">
                 <xs:simpleType>
                     <xs:restriction base ="xs:long">
-                        <xs:minInclusive value="1"/>
+                        <xs:minInclusive value="0"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element >
             <xs:element name="customerId" type="xs:int" />
+            <xs:element name="dateCreated" type="xs:date" />
+
         </xs:all>
         <xs:attribute ref="accountNumber"/>
     </xs:complexType>
