@@ -93,11 +93,10 @@ public class CustomerParserService implements ICustomerParserService {
 
     @Override
     public Customer unmarshall(String xmlPath) {
-        Unmarshaller um = null;
         Customer customer = null;
         try {
             JAXBContext context = JAXBContext.newInstance(Customer.class);
-            um = context.createUnmarshaller();
+            Unmarshaller um = context.createUnmarshaller();
             customer = (Customer) um.unmarshal(new File(xmlPath));
         } catch (jakarta.xml.bind.JAXBException e) {
             LOGGER.error(e.getMessage());
