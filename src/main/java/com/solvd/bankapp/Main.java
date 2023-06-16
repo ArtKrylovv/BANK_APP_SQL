@@ -82,14 +82,14 @@ public class  Main {
         Customer customer = new Customer(99999999, "Joe", "Doe", address1,
                 listSavings, listCards, checkingAccount1);
 
-//        // JAXB marshalling
+        // JAXB marshalling
         customerParserService.marshall(customer);
-//
+
         // JAXB unmarshalling
         LOGGER.info(customerParserService.unmarshall("src/main/resources/xml/jaxb_input.xml"));
 
 
-        // JACKSON deserializing
+        // JACKSON JSON deserializing
         EmployeeJsonService employeeJsonService = new EmployeeJsonService();
         Employee employee = employeeJsonService.deserialize(new File("src/main/resources/json/jackson_input.json"));
         LOGGER.info(employee);
