@@ -1,11 +1,19 @@
 package com.solvd.bankapp.bin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Payroll {
     private int id;
     // replace with enum
+    @JsonProperty("payType")
     private PayType payType;
+    @JsonProperty("annualSalary")
     private int annualSalary;
+    @JsonProperty("hourlyRate")
     private int hourlyRate;
+
+    public Payroll() {
+    }
 
     public int getId() {
         return id;

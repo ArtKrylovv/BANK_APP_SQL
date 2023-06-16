@@ -1,5 +1,6 @@
 package com.solvd.bankapp.bin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -8,16 +9,22 @@ import jakarta.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
     @XmlAttribute
+    @JsonProperty("id")
     private int id;
     @XmlElement(name="houseNumber")
+    @JsonProperty("houseNumber")
     private int houseNumber;
+    @JsonProperty("streetName")
     @XmlElement(name="streetName")
     private String streetName;
+    @JsonProperty("aptNumber")
     @XmlElement(name="aptNumber")
     private int aptNumber;
+    @JsonProperty("city")
     @XmlElement(name="city")
     private String city;
     @XmlElement(name="state")
+    @JsonProperty("state")
     private State state;
 
     public Address(int id, int houseNumber, String streetName, int aptNumber, String city, State state) {

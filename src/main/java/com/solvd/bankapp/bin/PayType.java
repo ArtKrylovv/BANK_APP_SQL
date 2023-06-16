@@ -1,5 +1,10 @@
 package com.solvd.bankapp.bin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum PayType {
-    FULL_TIME, PART_TIME;
+    @JsonProperty("full time")
+    FULL_TIME,
+    @JsonProperty("part time")
+    PART_TIME;
 }

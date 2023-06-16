@@ -1,15 +1,19 @@
 package com.solvd.bankapp.bin;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.*;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class State {
     @XmlAttribute
+    @JsonProperty("id")
     private int id;
     @XmlElement(name = "abbreviation")
+    @JsonProperty("abbreviation")
     private String abbreviation;
+    @JsonProperty("name")
     @XmlElement(name="name")
     private String name;
 

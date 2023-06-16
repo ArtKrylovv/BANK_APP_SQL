@@ -1,28 +1,47 @@
 package com.solvd.bankapp.bin;
 
-public class Employee {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String role;
-    private Address address;
-    private Department department;
-    private Branch branch;
-    private Payroll payroll;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-    public Employee(int id, String firstName, String lastName, String role, Address address, Department department, Branch branch, Payroll payroll) {
+import java.sql.Date;
+import java.util.List;
+
+@JsonPropertyOrder({"id", "firstName", "lastName", "role", "addressList", "payroll", "dataHired"})
+public class Employee {
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("firstName")
+    private String firstName;
+    @JsonProperty("lastName")
+    private String lastName;
+    @JsonProperty("role")
+    private String role;
+    @JsonProperty("payroll")
+    private Payroll payroll;
+    // created N:M for JSON practise, no SQL tables/ dao implementation
+    @JsonProperty("addresses")
+    private List<Address> addressList;
+    // created for JSON practise, no SQL tables/ dao implementation
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-mm-dd")
+    private Date dateHired;
+
+    public Employee(int id, String firstName, String lastName, String role, List<Address> addressList,Payroll payroll, Date dateHired) {
         // consider refactoring to reduce number of FKs in the table
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.address = address;
-        this.department = department;
-        this.branch = branch;
+        this.addressList = addressList;
         this.payroll = payroll;
+        this.dateHired = dateHired;
     }
 
     public Employee() {
+    }
+
+    public Date getDateHired() {
+        return dateHired;
     }
 
     public int getId() {
@@ -41,16 +60,8 @@ public class Employee {
         return role;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public Branch getBranch() {
-        return branch;
+    public List<Address> getAddress() {
+        return addressList;
     }
 
     public Payroll getPayroll() {
@@ -73,20 +84,16 @@ public class Employee {
         this.role = role;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public void setBranch(Branch branch) {
-        this.branch = branch;
+    public void setAddress(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     public void setPayroll(Payroll payroll) {
         this.payroll = payroll;
+    }
+
+    public void setDateHired(Date dateHired) {
+        this.dateHired = dateHired;
     }
 
     @Override
@@ -96,10 +103,9 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role='" + role + '\'' +
-                ", address=" + address +
-                ", department=" + department +
-                ", branch=" + branch +
+                ", address=" + addressList +
                 ", payroll=" + payroll +
+                ", dateHired=" + dateHired +
                 '}';
     }
 }

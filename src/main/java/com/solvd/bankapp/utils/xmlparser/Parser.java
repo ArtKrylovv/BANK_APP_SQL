@@ -1,4 +1,4 @@
-package com.solvd.bankapp.utils.parser;
+package com.solvd.bankapp.utils.xmlparser;
 
 import org.apache.logging.log4j.LogManager;
 import org.xml.sax.SAXException;

@@ -5,7 +5,7 @@ import com.solvd.bankapp.bin.Customer;
 import com.solvd.bankapp.handlers.AddressHandler;
 import com.solvd.bankapp.handlers.CustomerHandler;
 import com.solvd.bankapp.services.ICustomerParserService;
-import com.solvd.bankapp.utils.parser.Parser;
+import com.solvd.bankapp.utils.xmlparser.Parser;
 import com.solvd.bankapp.utils.validator.XMLValidator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;

@@ -34,6 +34,6 @@
     </creditCardAccounts>
     <checkingAccount accountNumber="9999999999999999">
         <balance>99</balance>
-        <dateCreated>1991-01-01</dateCreated>
+        <dateCreated>1991-12-01</dateCreated>
     </checkingAccount>
 </customer>

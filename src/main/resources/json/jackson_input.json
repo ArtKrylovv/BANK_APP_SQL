@@ -1,0 +1,41 @@
+{
+  "id" : 1,
+  "firstName": "Ilan",
+  "lastName": "Gavrilov",
+  "role": "owner",
+  "payroll":
+            {
+              "id" : "1",
+              "payType": "full time",
+              "annualSalary": 1000000,
+              "hourlyRate": null
+            },
+  "addresses": [
+                  {
+                    "id": 1,
+                    "houseNumber": 1,
+                    "streetName": "main",
+                    "aptNumber": 1,
+                    "city": "LA",
+                    "state": {
+                      "id": 1,
+                      "abbreviation": "CA",
+                      "name": "California"
+                    }
+                  },
+                  {
+                    "id" : 2,
+                    "houseNumber" : 2,
+                    "streetName" : "not main",
+                    "aptNumber" : 2,
+                    "city" : "LA",
+                    "state" :
+                    {
+                      "id" : 1,
+                      "abbreviation": "CA",
+                      "name": "California"
+                    }
+
+                }],
+  "dateHired": "2000-01-01"
+}
