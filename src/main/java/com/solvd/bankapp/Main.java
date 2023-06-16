@@ -91,7 +91,7 @@ public class  Main {
 
 
         // JACKSON JSON deserializing
-        EmployeeJsonService employeeJsonService = new EmployeeJsonService();
+        IEmployeeJsonService employeeJsonService = new EmployeeJsonService();
         Employee employee = employeeJsonService.deserialize(new File("src/main/resources/json/jackson_input.json"));
         LOGGER.info(employee);
     }
