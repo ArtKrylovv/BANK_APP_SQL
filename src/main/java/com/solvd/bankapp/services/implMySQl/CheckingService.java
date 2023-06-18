@@ -1,9 +1,9 @@
-package com.solvd.bankapp.services.impl;
+package com.solvd.bankapp.services.implMySQl;
 
 import com.solvd.bankapp.dao.impl.CheckingDaoImpl;
 import com.solvd.bankapp.dao.ICheckingDao;
 import com.solvd.bankapp.bin.CheckingAccount;
-import com.solvd.bankapp.services.ICheckingService;
+import com.solvd.bankapp.services.mysql.ICheckingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;

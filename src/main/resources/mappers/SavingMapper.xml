@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bankapp.mappers.SavingMapper">
+    <resultMap id="savingResultMap" type="com.solvd.bankapp.bin.SavingsAccount" autoMapping="false">
+        <id property="accountNumber" column="s_account_number"/>
+        <result property="balance" column="s_balance"/>
+        <result property="customerId" column ="s_customers_Id"/>
+        <result property="interest" column="s_interest"/>
+    </resultMap>
+</mapper>

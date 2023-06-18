@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bankapp.mappers.AddressMapper">
+    <resultMap id="addressResultMap" type="com.solvd.bankapp.bin.Address" autoMapping="false">
+        <id property="id" column="ID"/>
+        <result property="houseNumber" column="house_number"/>
+        <result property="streetName" column="street_name"/>
+        <result property="aptNumber" column="apt_number"/>
+        <result property="city" column="city"/>
+<!--        <result property="state" column="later"/>-->
+    </resultMap>
+</mapper>

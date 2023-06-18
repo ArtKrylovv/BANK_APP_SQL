@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- points to the mapper but implementation is optional, must if using interfaces -->
+<mapper namespace="com.solvd.bankapp.mappers.StateMapper">
+    <select id= "selectStateById" resultMap= "com.solvd.bankapp.mappers.StateMapper.stateResultMap">
+        <!-- If automapping disabled use: select id, username as Name (return as Name class field) from where id = #{id} -->
+        <!-- If automapping is enabled use: select * from Users where id = #{id} -->
+        select id, Name, Abbreviation from States where id = #{id}
+    </select>
+    <select id= "selectAll" resultMap= "com.solvd.bankapp.mappers.StateMapper.stateResultMap">
+        select id, Name, Abbreviation from States
+    </select>
+    <insert id= "createState">
+        <!-- use Java field names with {} -->
+        insert into States (name, abbreviation) values (#{name}, #{abbreviation})
+    </insert>
+    <update id="updateState">
+        update States set name = #{name}, abbreviation =  #{abbreviation} where id = #{id}
+    </update>
+    <delete id="deleteState">
+        delete from States where id = #{id}
+    </delete>
+
+    <resultMap id="stateResultMap" type="com.solvd.bankapp.bin.State" autoMapping="false">
+        <!-- id for PK of the table -->
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="abbreviation" column="ABBREVIATION"/>
+    </resultMap>
+</mapper>

@@ -1,9 +1,9 @@
-package com.solvd.bankapp.services.impl;
+package com.solvd.bankapp.services.implMySQl;
 
 import com.solvd.bankapp.dao.impl.CreditCardDaoImpl;
 import com.solvd.bankapp.dao.ICreditCardDao;
 import com.solvd.bankapp.bin.CreditCardAccount;
-import com.solvd.bankapp.services.ICreditCardService;
+import com.solvd.bankapp.services.mysql.ICreditCardService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

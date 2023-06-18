@@ -1,9 +1,9 @@
-package com.solvd.bankapp.services.impl;
+package com.solvd.bankapp.services.implMySQl;
 
 import com.solvd.bankapp.dao.impl.StateDaoImpl;
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.State;
-import com.solvd.bankapp.services.IStateService;
+import com.solvd.bankapp.services.mysql.IStateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

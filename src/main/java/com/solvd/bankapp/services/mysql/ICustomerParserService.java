@@ -1,7 +1,6 @@
-package com.solvd.bankapp.services;
+package com.solvd.bankapp.services.mysql;
 
 import com.solvd.bankapp.bin.Customer;
-import com.solvd.bankapp.services.IParserService;
 
 public interface ICustomerParserService extends IParserService <Customer>{
 }

@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services;
+package com.solvd.bankapp.services.mysql;
 
 import com.solvd.bankapp.bin.Employee;
 

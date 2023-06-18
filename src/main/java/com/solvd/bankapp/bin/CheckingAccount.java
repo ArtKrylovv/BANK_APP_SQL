@@ -24,6 +24,12 @@ public class CheckingAccount {
         this.dateCreated = dateCreated;
     }
 
+    public CheckingAccount(long balance, int customerId, Date dateCreated) {
+        this.balance = balance;
+        this.customerId = customerId;
+        this.dateCreated = dateCreated;
+    }
+
     public CheckingAccount() {
     }
 

@@ -1,10 +1,10 @@
-package com.solvd.bankapp.services.impl;
+package com.solvd.bankapp.services.implMySQl;
 
 import com.solvd.bankapp.bin.Address;
 import com.solvd.bankapp.bin.Customer;
 import com.solvd.bankapp.handlers.AddressHandler;
 import com.solvd.bankapp.handlers.CustomerHandler;
-import com.solvd.bankapp.services.ICustomerParserService;
+import com.solvd.bankapp.services.mysql.ICustomerParserService;
 import com.solvd.bankapp.utils.xmlparser.Parser;
 import com.solvd.bankapp.utils.validator.XMLValidator;
 import jakarta.xml.bind.JAXBContext;

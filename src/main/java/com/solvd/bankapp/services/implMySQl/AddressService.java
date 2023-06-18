@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services.impl;
+package com.solvd.bankapp.services.implMySQl;
 
 import com.solvd.bankapp.dao.impl.AddressDaoImpl;
 import com.solvd.bankapp.dao.impl.StateDaoImpl;
@@ -6,7 +6,7 @@ import com.solvd.bankapp.dao.IAddressDao;
 import com.solvd.bankapp.dao.IStateDao;
 import com.solvd.bankapp.bin.Address;
 import com.solvd.bankapp.bin.State;
-import com.solvd.bankapp.services.IAddressService;
+import com.solvd.bankapp.services.mysql.IAddressService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 

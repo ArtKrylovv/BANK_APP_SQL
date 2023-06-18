@@ -23,6 +23,11 @@ public class State {
         this.name = name;
     }
 
+    public State(String abbreviation, String name) {
+        this.abbreviation = abbreviation;
+        this.name = name;
+    }
+
     public State() {
     }
 

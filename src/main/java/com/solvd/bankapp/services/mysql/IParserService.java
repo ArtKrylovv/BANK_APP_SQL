@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services;
+package com.solvd.bankapp.services.mysql;
 
 
 public interface IParserService <T> {

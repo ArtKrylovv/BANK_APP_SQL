@@ -9,3 +9,4 @@ target/
 
 src/main/resources/ToDo.txt
 src/main/java/com/solvd/bankapp/Test.java
+src/main/resources/json/jackson_output.json

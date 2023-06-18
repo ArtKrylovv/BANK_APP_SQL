@@ -3,11 +3,13 @@ package com.solvd.bankapp.bin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.sql.Date;
 import java.util.List;
 
 @JsonPropertyOrder({"id", "firstName", "lastName", "role", "addressList", "payroll", "dataHired"})
+//@JsonRootName(value ="Employee")
 public class Employee {
     @JsonProperty("id")
     private int id;

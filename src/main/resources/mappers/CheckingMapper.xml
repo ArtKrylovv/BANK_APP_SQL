@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bankapp.mappers.CheckingMapper">
+    <select id= "selectAccountById" resultMap= "com.solvd.bankapp.mappers.CheckingMapper.checkingResultMap">
+        SELECT Balance, Customers_Id, account_number, date_created FROM Checking_accounts WHERE account_number = #{accountNumber}
+    </select>
+    <select id= "selectAccountAll" resultMap= "com.solvd.bankapp.mappers.CheckingMapper.checkingResultMap">
+        SELECT Balance, Customers_Id, account_number, date_created FROM Checking_accounts
+    </select>
+    <delete id="deleteChecking">
+        DELETE FROM Checking_accounts WHERE account_number = #{accountNumber}
+    </delete>
+    <insert id="createChecking">
+        INSERT INTO Checking_accounts (Balance, Customers_Id, Date_created) VALUES (#{balance}, #{customerId}, #{dateCreated})
+    </insert>
+    <update id="updateChecking">
+        UPDATE Checking_accounts Set balance = #{balance}, customers_id = #{customerId}, date_created = #{dateCreated}  WHERE account_number = #{accountNumber}
+    </update>
+    <resultMap id="checkingResultMap" type="com.solvd.bankapp.bin.CheckingAccount" autoMapping="false">
+        <id property="accountNumber" column="account_number"/>
+        <result property="balance" column="balance"/>
+        <result property="customerId" column ="customers_Id"/>
+        <result property="dateCreated" column="Date_created"/>
+    </resultMap>
+</mapper>
