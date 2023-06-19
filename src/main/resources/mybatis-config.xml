@@ -22,5 +22,6 @@
         <mapper resource = "mappers/CustomerMapper.xml"/>
         <mapper resource = "mappers/AddressMapper.xml"/>
         <mapper resource = "mappers/SavingMapper.xml"/>
+        <mapper resource = "mappers/CreditCardMapper.xml"/>
     </mappers>
 </configuration>

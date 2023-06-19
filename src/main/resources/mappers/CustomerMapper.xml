@@ -3,10 +3,11 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.bankapp.mappers.CustomerMapper">
-    <select id= "selectCustomerById" resultMap= "com.solvd.bankapp.mappers.CustomerMapper.customerResultMap">
+    <select id= "selectCustomerByIdFull" resultMap= "com.solvd.bankapp.mappers.CustomerMapper.customerResultMap">
         SELECT c.SSN, c.First_name, c.Last_name, c.Addresses_id, a.House_number, a.Street_name, a.Apt_number, a.City, a.ID,
         ch.account_number, ch.balance, ch.customers_id, ch.date_created, s.account_number as s_account_number, s.balance as s_balance,
-        s.customers_id as s_customers_id, s.interest as s_interest
+        s.customers_id as s_customers_id, s.interest as s_interest, cr.account_number as cr_account_number, cr.balance as cr_balance,
+        cr.customers_id as cr_customers_id, cr.interest as cr_interest
         FROM Customers c
         LEFT JOIN Addresses a
         ON c.Addresses_id = a.Id
@@ -14,8 +15,43 @@
         ON c.ssn = ch.customers_id
         LEFT JOIN Saving_accounts s
         ON c.ssn = s.customers_id
+        LEFT JOIN Credit_card_accounts cr
+        ON c.ssn = cr.customers_id
+    </select>
+    <select id= "selectCustomerById" resultMap= "com.solvd.bankapp.mappers.CustomerMapper.customerResultMap">
+        SELECT c.SSN, c.First_name, c.Last_name
+        FROM Customers c
         WHERE c.SSN = #{ssn}
     </select>
+    <select id= "selectAll" resultMap= "com.solvd.bankapp.mappers.CustomerMapper.customerResultMap">
+        SELECT c.SSN, c.First_name, c.Last_name
+        FROM Customers c
+    </select>
+    <select id= "selectAllFull" resultMap= "com.solvd.bankapp.mappers.CustomerMapper.customerResultMap">
+        SELECT c.SSN, c.First_name, c.Last_name, c.Addresses_id, a.House_number, a.Street_name, a.Apt_number, a.City, a.ID,
+        ch.account_number, ch.balance, ch.customers_id, ch.date_created, s.account_number as s_account_number, s.balance as s_balance,
+        s.customers_id as s_customers_id, s.interest as s_interest, cr.account_number as cr_account_number, cr.balance as cr_balance,
+        cr.customers_id as cr_customers_id, cr.interest as cr_interest
+        FROM Customers c
+        LEFT JOIN Addresses a
+        ON c.Addresses_id = a.Id
+        LEFT JOIN Checking_accounts ch
+        ON c.ssn = ch.customers_id
+        LEFT JOIN Saving_accounts s
+        ON c.ssn = s.customers_id
+        LEFT JOIN Credit_card_accounts cr
+        ON c.ssn = cr.customers_id
+    </select>
+    <insert id="createCustomer">
+        INSERT into Customers (ssn, first_name, last_name, addresses_id) VALUES (#{ssn}, #{firstName}, #{lastName}, #{address.id})
+    </insert>
+    <update id="updateCustomer">
+        UPDATE Customers SET first_name = #{firstName}, last_name= #{lastName}, addresses_id = #{address.id}
+        WHERE ssn = #{ssn}
+    </update>
+    <delete id="deleteCustomer">
+        DELETE FROM Customers WHERE ssn = #{id}
+    </delete>
     <resultMap id="customerResultMap" type="com.solvd.bankapp.bin.Customer" autoMapping="false">
         <id property="ssn" column="ssn"/>
         <result property="firstName" column="first_name"/>
@@ -23,14 +59,6 @@
         <association property ="address" resultMap="com.solvd.bankapp.mappers.AddressMapper.addressResultMap"/>
         <association property="checkingAccount" resultMap="com.solvd.bankapp.mappers.CheckingMapper.checkingResultMap"/>
         <collection property="savingAccountsList" resultMap="com.solvd.bankapp.mappers.SavingMapper.savingResultMap"/>
+        <collection property="creditCardAccounts" resultMap="com.solvd.bankapp.mappers.CreditCardMapper.creditResultMap"/>
     </resultMap>
 </mapper>
-
-<!--        private int ssn;-->
-<!--        private String firstName;-->
-<!--        private String lastName;-->
-<!--        -->
-<!--        private Address address;-->
-<!--        private List<SavingsAccount> savingAccountsList;-->
-<!--private List<CreditCardAccount> creditCardAccounts;-->
-<!--    private CheckingAccount checkingAccount;-->

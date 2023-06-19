@@ -39,6 +39,10 @@ public class Address {
     public Address() {
     }
 
+    public Address(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -86,6 +90,8 @@ public class Address {
     public void setState(State state) {
         this.state = state;
     }
+
+
 
     @Override
     public String toString() {

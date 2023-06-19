@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bankapp.mappers.CreditCardMapper">
+    <resultMap id="creditResultMap" type="com.solvd.bankapp.bin.CreditCardAccount" autoMapping="false">
+        <id property="accountNumber" column="cr_account_number"/>
+        <result property="balance" column="cr_balance"/>
+        <result property="customerId" column ="cr_customers_Id"/>
+        <result property="interest" column="cr_interest"/>
+    </resultMap>
+</mapper>

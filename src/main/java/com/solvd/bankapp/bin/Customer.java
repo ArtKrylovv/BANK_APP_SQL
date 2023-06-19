@@ -34,6 +34,8 @@ public class Customer {
         this.checkingAccount = checkingAccount;
     }
 
+
+
     public Customer() {
     }
 

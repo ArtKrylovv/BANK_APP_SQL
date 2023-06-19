@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface CustomerMapper {
     Customer selectCustomerById(int id);
-    List<Customer> selectCustomerAll();
+    Customer selectCustomerByIdFull(int id);
+    List<Customer> selectAll();
+    List<Customer> selectAllFull();
     void createCustomer(Customer customer);
     void updateCustomer(Customer customer);
     void deleteCustomer(int id);

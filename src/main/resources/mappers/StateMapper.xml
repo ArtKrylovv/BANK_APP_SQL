@@ -26,8 +26,8 @@
 
     <resultMap id="stateResultMap" type="com.solvd.bankapp.bin.State" autoMapping="false">
         <!-- id for PK of the table -->
-        <id property="id" column="ID"/>
-        <result property="name" column="NAME"/>
-        <result property="abbreviation" column="ABBREVIATION"/>
+        <id property="id" column="id_st"/>
+        <result property="name" column="name_st"/>
+        <result property="abbreviation" column="abbreviation_st"/>
     </resultMap>
 </mapper>

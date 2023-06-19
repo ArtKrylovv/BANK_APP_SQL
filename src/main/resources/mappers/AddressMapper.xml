@@ -10,6 +10,6 @@
         <result property="streetName" column="street_name"/>
         <result property="aptNumber" column="apt_number"/>
         <result property="city" column="city"/>
-<!--        <result property="state" column="later"/>-->
+        <association property="state" resultMap="com.solvd.bankapp.mappers.StateMapper.stateResultMap"/>
     </resultMap>
 </mapper>
