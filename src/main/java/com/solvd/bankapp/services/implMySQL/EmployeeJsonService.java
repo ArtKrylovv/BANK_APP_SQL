@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services.implMySQl;
+package com.solvd.bankapp.services.implMySQL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

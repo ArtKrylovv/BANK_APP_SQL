@@ -1,11 +1,8 @@
-package com.solvd.bankapp.services.implMyBanatis;
+package com.solvd.bankapp.services.implMyBatis;
 
 import com.solvd.bankapp.bin.CheckingAccount;
-import com.solvd.bankapp.bin.State;
 import com.solvd.bankapp.mappers.CheckingMapper;
-import com.solvd.bankapp.mappers.StateMapper;
 import com.solvd.bankapp.services.mysql.ICheckingService;
-import com.solvd.bankapp.services.mysql.IStateService;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;

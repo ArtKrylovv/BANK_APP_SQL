@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services.implMySQl;
+package com.solvd.bankapp.services.implMySQL;
 
 import com.solvd.bankapp.dao.impl.AddressDaoImpl;
 import com.solvd.bankapp.dao.impl.StateDaoImpl;

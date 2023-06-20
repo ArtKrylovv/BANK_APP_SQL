@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services.implMyBanatis;
+package com.solvd.bankapp.services.implMyBatis;
 
 import com.solvd.bankapp.bin.State;
 import com.solvd.bankapp.mappers.StateMapper;

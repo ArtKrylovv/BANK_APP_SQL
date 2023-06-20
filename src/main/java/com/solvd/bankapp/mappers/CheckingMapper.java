@@ -1,8 +1,6 @@
 package com.solvd.bankapp.mappers;
 
 import com.solvd.bankapp.bin.CheckingAccount;
-import com.solvd.bankapp.bin.State;
-import com.solvd.bankapp.services.implMyBanatis.CheckingService;
 
 import java.util.List;
 
