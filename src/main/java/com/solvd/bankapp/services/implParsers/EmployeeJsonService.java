@@ -1,9 +1,9 @@
-package com.solvd.bankapp.services.implMySQL;
+package com.solvd.bankapp.services.implParsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.solvd.bankapp.bin.Employee;
-import com.solvd.bankapp.services.mysql.IEmployeeJsonService;
+import com.solvd.bankapp.services.parsers.IEmployeeJsonService;
 import com.solvd.bankapp.utils.jsonparser.Mapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,20 +13,21 @@ import java.io.IOException;
 
 public class EmployeeJsonService implements IEmployeeJsonService {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static  final String JSON_OUTPUT = "src/main/resources/json/jackson_output.json";
 
     @Override
-    public void serialize(Employee employee) {
+    public String serialize(Employee employee) {
+        String jsonString = null;
         ObjectMapper objectMapper = Mapper.get();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         try {
-            objectMapper.writeValue(new File(JSON_OUTPUT), employee);
+            jsonString = objectMapper.writeValueAsString(employee);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
-        LOGGER.info("Serialization completed");
+        return jsonString;
     }
+
     @Override
     public Employee deserialize(File jsonFile) {
         Employee employee = null;

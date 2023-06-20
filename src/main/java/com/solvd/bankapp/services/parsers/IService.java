@@ -1,4 +1,4 @@
-package com.solvd.bankapp.services;
+package com.solvd.bankapp.services.parsers;
 
 import java.io.IOException;
 import java.util.List;

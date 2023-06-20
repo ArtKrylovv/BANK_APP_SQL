@@ -1,9 +1,9 @@
-package com.solvd.bankapp.services.mysql;
+package com.solvd.bankapp.services.parsers;
 
 
 public interface IParserService <T> {
     T getResult(String uri);
     String validate(String uriXml);
-    void marshall(T t);
+    String marshall(T t);
     T unmarshall(String xmlPath);
 }

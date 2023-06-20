@@ -1,10 +1,10 @@
-package com.solvd.bankapp.services.implMySQL;
+package com.solvd.bankapp.services.implParsers;
 
 import com.solvd.bankapp.bin.Address;
 import com.solvd.bankapp.bin.Customer;
 import com.solvd.bankapp.handlers.AddressHandler;
 import com.solvd.bankapp.handlers.CustomerHandler;
-import com.solvd.bankapp.services.mysql.ICustomerParserService;
+import com.solvd.bankapp.services.parsers.ICustomerParserService;
 import com.solvd.bankapp.utils.xmlparser.Parser;
 import com.solvd.bankapp.utils.validator.XMLValidator;
 import jakarta.xml.bind.JAXBContext;
@@ -14,10 +14,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import jakarta.xml.bind.JAXBException;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Validator;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -79,16 +81,31 @@ public class CustomerParserService implements ICustomerParserService {
     }
 
     @Override
-    public void marshall(Customer customer) {
+    public String marshall(Customer customer) {
+        ByteArrayOutputStream outputStream = null;
+        String xmlString = null;
         try {
             JAXBContext context = JAXBContext.newInstance(Customer.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            m.marshal(customer, new File(JAXB_OUTPUT));
-        } catch (jakarta.xml.bind.JAXBException e) {
+
+            outputStream = new ByteArrayOutputStream();
+            m.marshal(customer, outputStream);
+            xmlString = outputStream.toString();
+
+        } catch (JAXBException e) {
+
             LOGGER.error(e.getMessage());
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage());
+            }
         }
-        LOGGER.info("Marshalling completed");
+        return xmlString;
     }
 
     @Override
@@ -98,10 +115,24 @@ public class CustomerParserService implements ICustomerParserService {
             JAXBContext context = JAXBContext.newInstance(Customer.class);
             Unmarshaller um = context.createUnmarshaller();
             customer = (Customer) um.unmarshal(new File(xmlPath));
-        } catch (jakarta.xml.bind.JAXBException e) {
+        } catch (JAXBException e) {
             LOGGER.error(e.getMessage());
         }
         return customer;
     }
 }
 
+// Previous implementation that writes JSON to path
+
+//    @Override
+//    public void marshall(Customer customer) {
+//        try {
+//            JAXBContext context = JAXBContext.newInstance(Customer.class);
+//            Marshaller m = context.createMarshaller();
+//            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//            m.marshal(customer, new File(JAXB_OUTPUT));
+//        } catch (jakarta.xml.bind.JAXBException e) {
+//            LOGGER.error(e.getMessage());
+//        }
+//        LOGGER.info("Marshalling completed");
+//    }

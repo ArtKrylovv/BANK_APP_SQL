@@ -1,7 +1,7 @@
 package com.solvd.bankapp.services.mysql;
 
 import com.solvd.bankapp.bin.Address;
-import com.solvd.bankapp.services.IService;
+import com.solvd.bankapp.services.parsers.IService;
 
 import java.util.List;
 

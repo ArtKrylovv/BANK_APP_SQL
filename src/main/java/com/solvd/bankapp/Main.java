@@ -1,10 +1,7 @@
 package com.solvd.bankapp;
-
-import com.solvd.bankapp.bin.Address;
-import com.solvd.bankapp.bin.Customer;
+import com.solvd.bankapp.bin.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -13,9 +10,10 @@ import java.util.Properties;
 
 public class  Main {
     public static final Logger LOGGER = LogManager.getLogger(Main.class);
+    private static final String IMPL_PROPERTIES = "src/main/resources/db/impl.properties";
 
     public static void main(String[] args) {
-        try (FileInputStream file = new FileInputStream("src/main/resources/db/impl.properties")) {
+        try (FileInputStream file = new FileInputStream(IMPL_PROPERTIES)) {
             Properties properties = new Properties();
             properties.load(file);
             // getting package and class name from .properties
@@ -43,11 +41,8 @@ public class  Main {
             LOGGER.info(removeFromDb.invoke(customerService, 22222222));
             LOGGER.info(readAllFromDb.invoke(customerService, true));
 
-
         } catch (IOException | RuntimeException | ReflectiveOperationException e) {
                 LOGGER.error(e.getMessage());
             }
     }
 }
-
-
