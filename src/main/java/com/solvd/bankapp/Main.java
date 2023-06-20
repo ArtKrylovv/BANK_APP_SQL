@@ -15,7 +15,7 @@ public class  Main {
     public static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        try (FileInputStream file = new FileInputStream("src/main/java/com/solvd/bankapp/impl.properties")) {
+        try (FileInputStream file = new FileInputStream("src/main/resources/db/impl.properties")) {
             Properties properties = new Properties();
             properties.load(file);
             // getting package and class name from .properties
